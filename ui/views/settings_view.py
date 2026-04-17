@@ -1,0 +1,123 @@
+"""Settings view — language, theme, thresholds, output format."""
+
+import customtkinter as ctk
+from ui.theme import accent_button, ghost_button, card_frame, section_label, MUTED
+from config import (
+    SHARPNESS_MIN, NOISE_MAX, EXPOSURE_LOW, EXPOSURE_HIGH,
+    DUPLICATE_THRESHOLD, OUTPUT_FORMAT, OUTPUT_QUALITY,
+)
+
+
+class SettingsView(ctk.CTkFrame):
+    def __init__(self, parent, app, **kw):
+        super().__init__(parent, fg_color="transparent", **kw)
+        self._app = app
+        self._build()
+
+    def _build(self):
+        self.grid_columnconfigure(0, weight=1)
+
+        # --- Appearance ---
+        appear_card = card_frame(self)
+        appear_card.grid(row=0, column=0, sticky="ew", pady=(0, 12))
+        appear_card.grid_columnconfigure(1, weight=1)
+
+        section_label(appear_card, self._t("settings.title")).grid(
+            row=0, column=0, columnspan=2, sticky="w", padx=16, pady=(12, 8)
+        )
+
+        ctk.CTkLabel(appear_card, text=self._t("settings.language"),
+                     font=ctk.CTkFont(size=12)).grid(row=1, column=0, sticky="w", padx=16, pady=4)
+        from i18n import all_lang_options
+        lang_codes = [c for c, _ in all_lang_options()]
+        lang_labels = [f"{n} ({c})" for c, n in all_lang_options()]
+        self._lang_var = ctk.StringVar(value=self._app.lang)
+        ctk.CTkOptionMenu(
+            appear_card,
+            values=lang_codes,
+            variable=self._lang_var,
+            width=160, height=30,
+        ).grid(row=1, column=1, sticky="w", padx=16, pady=4)
+
+        ctk.CTkLabel(appear_card, text=self._t("settings.theme"),
+                     font=ctk.CTkFont(size=12)).grid(row=2, column=0, sticky="w", padx=16, pady=4)
+        self._theme_var = ctk.StringVar(value=self._app.theme)
+        ctk.CTkSegmentedButton(
+            appear_card,
+            values=["dark", "light", "system"],
+            variable=self._theme_var,
+            height=28,
+        ).grid(row=2, column=1, sticky="w", padx=16, pady=4)
+
+        ctk.CTkLabel(appear_card, text=self._t("settings.output_format"),
+                     font=ctk.CTkFont(size=12)).grid(row=3, column=0, sticky="w", padx=16, pady=4)
+        self._fmt_var = ctk.StringVar(value=OUTPUT_FORMAT)
+        ctk.CTkSegmentedButton(
+            appear_card, values=["JPEG", "PNG", "TIFF"],
+            variable=self._fmt_var, height=28,
+        ).grid(row=3, column=1, sticky="w", padx=16, pady=4)
+
+        ctk.CTkLabel(appear_card, text=self._t("settings.output_quality"),
+                     font=ctk.CTkFont(size=12)).grid(row=4, column=0, sticky="w", padx=16, pady=4)
+        self._quality_var = ctk.IntVar(value=OUTPUT_QUALITY)
+        ctk.CTkSlider(appear_card, from_=60, to=100, variable=self._quality_var,
+                      number_of_steps=40).grid(row=4, column=1, sticky="ew", padx=16, pady=4)
+
+        ctk.CTkLabel(appear_card, text=self._t("settings.xmp_export"),
+                     font=ctk.CTkFont(size=12)).grid(row=5, column=0, sticky="w", padx=16, pady=(4, 14))
+        self._xmp_var = ctk.BooleanVar(value=True)
+        ctk.CTkSwitch(appear_card, text="", variable=self._xmp_var).grid(
+            row=5, column=1, sticky="w", padx=16, pady=(4, 14)
+        )
+
+        # --- Culling thresholds ---
+        thresh_card = card_frame(self)
+        thresh_card.grid(row=1, column=0, sticky="ew", pady=(0, 12))
+        thresh_card.grid_columnconfigure(1, weight=1)
+
+        section_label(thresh_card, self._t("thresholds.title")).grid(
+            row=0, column=0, columnspan=3, sticky="w", padx=16, pady=(12, 8)
+        )
+
+        sliders = [
+            ("thresholds.sharpness_min", SHARPNESS_MIN, 0, 300),
+            ("thresholds.noise_max", NOISE_MAX, 0, 100),
+            ("thresholds.exposure_low", EXPOSURE_LOW, 0, 128),
+            ("thresholds.exposure_high", EXPOSURE_HIGH, 128, 255),
+            ("thresholds.duplicate_threshold", DUPLICATE_THRESHOLD, 0, 30),
+            ("thresholds.motion_blur_threshold", 5, 0, 50),
+        ]
+        self._threshold_vars = {}
+        for i, (key, default, lo, hi) in enumerate(sliders, 1):
+            var = ctk.DoubleVar(value=default)
+            self._threshold_vars[key] = var
+            ctk.CTkLabel(thresh_card, text=self._t(key),
+                         font=ctk.CTkFont(size=12)).grid(
+                row=i, column=0, sticky="w", padx=16, pady=2
+            )
+            ctk.CTkSlider(thresh_card, from_=lo, to=hi, variable=var).grid(
+                row=i, column=1, sticky="ew", padx=12, pady=2
+            )
+            val_lbl = ctk.CTkLabel(thresh_card, textvariable=var,
+                                   font=ctk.CTkFont(size=11), text_color=MUTED, width=40)
+            val_lbl.grid(row=i, column=2, padx=(0, 16), pady=2)
+
+        # --- Save / Reset ---
+        btn_frame = ctk.CTkFrame(self, fg_color="transparent")
+        btn_frame.grid(row=2, column=0, sticky="w", pady=(4, 0))
+        accent_button(btn_frame, self._t("settings.save"),
+                      command=self._save, width=120).pack(side="left", padx=(0, 10))
+        ghost_button(btn_frame, self._t("settings.reset"),
+                     command=self._reset, width=120).pack(side="left")
+
+    def _save(self):
+        self._app.set_lang(self._lang_var.get())
+        import customtkinter as ctk
+        ctk.set_appearance_mode(self._theme_var.get())
+        self._app.theme = self._theme_var.get()
+
+    def _reset(self):
+        pass
+
+    def _t(self, key: str, **kw) -> str:
+        return self._app.t(key, **kw)
