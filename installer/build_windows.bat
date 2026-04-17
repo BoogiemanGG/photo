@@ -1,8 +1,12 @@
 @echo off
 REM ──────────────────────────────────────────────────────────────────
 REM PhotoStudioHub — Windows build script
-REM Run this from the project root directory.
+REM Double-click this file from anywhere — it finds its own location.
 REM Produces: dist\PhotoStudioHub-Setup-1.0.exe
+
+REM Always run from the project root (one folder above installer\)
+cd /d "%~dp0.."
+echo Running from: %CD%
 REM
 REM Finds Python 3.11 automatically via three methods:
 REM   1. py -3.11 launcher (recommended)
