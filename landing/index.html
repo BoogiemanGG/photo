@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhotoStudioHub — AI Photo Processing for Professional Studios</title>
+  <meta name="description" content="Cull, edit, and retouch entire wedding shoots in minutes. 50 AI features. 100% offline. Free 14-day trial." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav">
+  <div class="nav-inner container">
+    <span class="logo">PhotoStudioHub</span>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#pricing" class="btn btn-accent nav-cta">Start Free Trial</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="badge">Now available — Version 1.0</div>
+    <h1>
+      From 500 RAW files<br />
+      to finished gallery<br />
+      <span class="grad">in under 30 minutes.</span>
+    </h1>
+    <p class="hero-sub">
+      PhotoStudioHub combines AI culling, smart editing, and portrait
+      retouching into one offline desktop tool — no cloud, no per-photo fees,
+      no subscriptions to 3 different apps.
+    </p>
+    <div class="hero-ctas">
+      <a href="#pricing" class="btn btn-accent btn-lg">Start 14-day free trial</a>
+      <a href="#features" class="btn btn-ghost btn-lg">See all 50 features →</a>
+    </div>
+    <p class="hero-note">No credit card required &nbsp;·&nbsp; Windows 10/11 &nbsp;·&nbsp; 100% offline</p>
+
+    <!-- Mock screenshot -->
+    <div class="hero-screenshot">
+      <div class="mock-window">
+        <div class="mock-titlebar">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="mock-title">PhotoStudioHub</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-sidebar">
+            <div class="mock-nav active">🚀 Full Pipeline</div>
+            <div class="mock-nav">✂ Cull</div>
+            <div class="mock-nav">🎨 Edit</div>
+            <div class="mock-nav">✨ Retouch</div>
+            <div class="mock-nav">⚙ Settings</div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-row"><span class="mock-label">Input folder</span><div class="mock-input">C:\Photos\Wedding_2026</div></div>
+            <div class="mock-row"><span class="mock-label">Output folder</span><div class="mock-input">C:\Photos\Output</div></div>
+            <div class="mock-cards">
+              <div class="mock-card"><div class="mock-card-val" style="color:#22C55E">287</div><div class="mock-card-lbl">Selects</div></div>
+              <div class="mock-card"><div class="mock-card-val" style="color:#EF4444">63</div><div class="mock-card-lbl">Rejects</div></div>
+              <div class="mock-card"><div class="mock-card-val">82%</div><div class="mock-card-lbl">Rate</div></div>
+            </div>
+            <div class="mock-progress">
+              <div class="mock-progress-bar" style="width:78%"></div>
+            </div>
+            <div class="mock-log">
+              [CULL] Done — 287 selects, 63 rejects<br />
+              [EDIT] Editing 287 photos… 231/287<br />
+              [INFO] ETA: 18s
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LOGOS / SOCIAL PROOF ─── -->
+<section class="social-proof">
+  <div class="container">
+    <p class="sp-label">Replaces all three of:</p>
+    <div class="sp-logos">
+      <span>Aftershoot</span>
+      <span class="sp-plus">+</span>
+      <span>Imagen AI</span>
+      <span class="sp-plus">+</span>
+      <span>Evoto AI</span>
+    </div>
+    <p class="sp-sublabel">At a fraction of the price &nbsp;·&nbsp; Fully offline &nbsp;·&nbsp; No per-photo fees</p>
+  </div>
+</section>
+
+<!-- ─── STATS BAR ─── -->
+<section class="stats-bar">
+  <div class="container stats-inner">
+    <div class="stat"><span class="stat-n">~200</span><span class="stat-l">photos/min culled</span></div>
+    <div class="stat"><span class="stat-n">50</span><span class="stat-l">AI features</span></div>
+    <div class="stat"><span class="stat-n">5</span><span class="stat-l">languages</span></div>
+    <div class="stat"><span class="stat-n">100%</span><span class="stat-l">offline</span></div>
+    <div class="stat"><span class="stat-n">0€</span><span class="stat-l">API fees</span></div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="features section" id="features">
+  <div class="container">
+    <div class="section-tag">Features</div>
+    <h2>Everything you need.<br />Nothing you don't.</h2>
+    <p class="section-sub">50 AI features across three pipelines — all running locally on your machine.</p>
+
+    <div class="feature-grid">
+
+      <!-- Culling -->
+      <div class="feature-col">
+        <div class="feature-col-header">
+          <span class="col-icon">✂</span>
+          <span>AI Culling</span>
+        </div>
+        <ul class="feature-list">
+          <li>Sharpness detection (Laplacian variance)</li>
+          <li>Exposure analysis — under &amp; overexposed</li>
+          <li>Noise detection</li>
+          <li>Motion blur detection (FFT)</li>
+          <li>Perceptual duplicate detection (pHash)</li>
+          <li>Eye blink / closed-eye detection</li>
+          <li>Facial expression scoring</li>
+          <li>Face detection — frontal + profile</li>
+          <li>Head pose estimation (yaw)</li>
+          <li>Burst grouping &amp; best-shot selection</li>
+          <li>GPS location grouping</li>
+          <li>Event / timeline grouping</li>
+          <li>Rule-of-thirds crop suggestion</li>
+          <li>Portrait crop by head size</li>
+          <li>Age &amp; gender estimation</li>
+          <li>JSON + XMP report export</li>
+        </ul>
+      </div>
+
+      <!-- Editing -->
+      <div class="feature-col">
+        <div class="feature-col-header">
+          <span class="col-icon">🎨</span>
+          <span>AI Editing</span>
+        </div>
+        <ul class="feature-list">
+          <li>White balance correction (gray world)</li>
+          <li>Exposure &amp; brightness adjustment</li>
+          <li>Noise reduction (fastNlMeans)</li>
+          <li>Sharpening (unsharp mask)</li>
+          <li>Vignette effect</li>
+          <li>Bokeh / portrait background blur</li>
+          <li>Super-resolution 2× / 4× (Real-ESRGAN)</li>
+          <li>RAW conversion (CR2, NEF, ARW, DNG…)</li>
+          <li>Preset profiles — Warm, Airy, Moody, B&amp;W</li>
+          <li>LUT color grading</li>
+          <li>Color palette extraction</li>
+          <li>EXIF metadata preservation</li>
+          <li>Horizon auto-straightening</li>
+          <li>Lens distortion correction</li>
+          <li>Chromatic aberration fix</li>
+          <li>Dust spot removal</li>
+          <li>Batch editing pipeline</li>
+        </ul>
+      </div>
+
+      <!-- Retouching -->
+      <div class="feature-col">
+        <div class="feature-col-header">
+          <span class="col-icon">✨</span>
+          <span>AI Retouching</span>
+        </div>
+        <ul class="feature-list">
+          <li>Skin smoothing (bilateral filter)</li>
+          <li>Blemish &amp; spot removal (inpainting)</li>
+          <li>Skin shine / oiliness reduction</li>
+          <li>Eye brightening</li>
+          <li>Teeth whitening</li>
+          <li>Dark circle reduction</li>
+          <li>Eye color enhancement</li>
+          <li>Skin tone analysis &amp; reporting</li>
+          <li>Face alignment (eye-level rotation)</li>
+          <li>Background removal (U2Net)</li>
+          <li>Portrait segmentation</li>
+          <li>Under-eye brightening</li>
+          <li>Face region auto-detection</li>
+          <li>Lip tone enhancement</li>
+          <li>XMP sidecar export</li>
+          <li>Batch rename with EXIF date</li>
+          <li>Full batch retouch pipeline</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="how section" id="how">
+  <div class="container">
+    <div class="section-tag">How it works</div>
+    <h2>Three steps. Done.</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <h3>Drop your folder</h3>
+        <p>Point PhotoStudioHub at any folder of RAW or JPEG files. It reads CR2, NEF, ARW, DNG, JPG, PNG, TIFF.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <h3>Pick your mode</h3>
+        <p>Run just culling, just editing, just retouching — or hit <strong>Full Pipeline</strong> to do all three automatically.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <h3>Deliver to client</h3>
+        <p>Your output folder is ready. Selects are rated, edited, and retouched. XMP sidecars open in Lightroom.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ─── -->
+<section class="pricing section" id="pricing">
+  <div class="container">
+    <div class="section-tag">Pricing</div>
+    <h2>Simple, transparent pricing.</h2>
+    <p class="section-sub">Start with 14 days fully free — no credit card needed.</p>
+
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">€49<span>/month</span></div>
+        <div class="plan-annual">or €490/year <span class="save-badge">save 2 months</span></div>
+        <ul class="plan-features">
+          <li>✓ Up to 3,000 photos / month</li>
+          <li>✓ All 50 AI features</li>
+          <li>✓ All output formats (JPEG, TIFF, PNG)</li>
+          <li>✓ XMP sidecar export</li>
+          <li>✓ Lightroom-compatible ratings</li>
+          <li>✓ EN / DE / HR / BS / SR interface</li>
+          <li>✓ Offline — no internet required</li>
+          <li>✓ Email support</li>
+        </ul>
+        <a href="#download" class="btn btn-ghost btn-full">Get Pro</a>
+      </div>
+
+      <div class="pricing-card pricing-featured">
+        <div class="popular-badge">Most Popular</div>
+        <div class="plan-name">Unlimited</div>
+        <div class="plan-price">€99<span>/month</span></div>
+        <div class="plan-annual">or €990/year <span class="save-badge">save 2 months</span></div>
+        <ul class="plan-features">
+          <li>✓ <strong>Unlimited</strong> photos / month</li>
+          <li>✓ All 50 AI features</li>
+          <li>✓ All output formats</li>
+          <li>✓ XMP sidecar export</li>
+          <li>✓ Lightroom-compatible ratings</li>
+          <li>✓ EN / DE / HR / BS / SR interface</li>
+          <li>✓ Offline — no internet required</li>
+          <li>✓ Priority email support</li>
+        </ul>
+        <a href="#download" class="btn btn-accent btn-full">Start Free Trial</a>
+      </div>
+
+    </div>
+
+    <p class="pricing-note">
+      🎁 &nbsp;<strong>14-day free trial</strong> — full Unlimited access, no credit card.
+      After trial, choose the plan that fits your studio.
+    </p>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="faq section" id="faq">
+  <div class="container faq-inner">
+    <div class="section-tag">FAQ</div>
+    <h2>Frequently asked questions</h2>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Does it work without internet?</summary>
+        <p>Yes — 100% offline after the initial one-time model download (~1 GB). AI models run locally on your CPU or GPU. No data leaves your machine.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What camera RAW formats are supported?</summary>
+        <p>CR2, CR3, NEF, ARW, DNG, ORF, RW2, RAF and more via the rawpy library (based on LibRaw). JPEG, PNG, and TIFF are also supported.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How fast is it?</summary>
+        <p>On a modern 8-core CPU: ~200 photos/minute for culling, ~20 photos/minute for full pipeline. GPU acceleration (NVIDIA CUDA) speeds editing and super-resolution up to 5×.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use the output in Lightroom or Capture One?</summary>
+        <p>Yes. PhotoStudioHub writes Lightroom-compatible XMP sidecar files with star ratings (1–5) and color labels. Your selects open with the correct ratings already applied.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What happens after the 14-day trial?</summary>
+        <p>The app stays installed and you keep your settings. You'll be prompted to enter a license key. No automatic charges — you choose when and what to buy.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is the license per machine or per user?</summary>
+        <p>Per machine (hardware-fingerprinted). One license = one computer. If you need multiple seats, contact us for a studio bundle.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What languages is the interface available in?</summary>
+        <p>English, Deutsch, Hrvatski, Bosanski, Srpski — with more languages coming soon. The language system is open-architecture; any language can be added.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA BANNER ─── -->
+<section class="cta-banner">
+  <div class="container cta-inner">
+    <h2>Ready to cut your editing time in half?</h2>
+    <p>Join photographers across Croatia, Bosnia, Serbia, Austria, and Germany who process full wedding shoots in under 30 minutes.</p>
+    <a href="#download" class="btn btn-accent btn-lg">Start your 14-day free trial</a>
+    <p class="cta-note">No credit card &nbsp;·&nbsp; No cloud &nbsp;·&nbsp; No per-photo fees</p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer" id="contact">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <strong>PhotoStudioHub</strong>
+      <span>AI Photo Processing</span>
+    </div>
+    <div class="footer-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="mailto:support@photostudiohub.com">support@photostudiohub.com</a>
+    </div>
+    <div class="footer-langs">
+      🌐 EN &nbsp;·&nbsp; DE &nbsp;·&nbsp; HR &nbsp;·&nbsp; BS &nbsp;·&nbsp; SR
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      © 2026 PhotoStudioHub &nbsp;·&nbsp; All rights reserved
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
