@@ -1,17 +1,16 @@
 import cv2
-import numpy as np
 import os
+import threading
 
-_face_cascade = None
+_local = threading.local()
 
 
 def _get_cascade():
-    global _face_cascade
-    if _face_cascade is None:
-        _face_cascade = cv2.CascadeClassifier(
+    if not hasattr(_local, "face"):
+        _local.face = cv2.CascadeClassifier(
             os.path.join(cv2.data.haarcascades, "haarcascade_frontalface_default.xml")
         )
-    return _face_cascade
+    return _local.face
 
 
 def auto_crop_rule_of_thirds(image_path: str, output_path: str,
@@ -24,20 +23,16 @@ def auto_crop_rule_of_thirds(image_path: str, output_path: str,
     faces = _get_cascade().detectMultiScale(gray, 1.1, 5, minSize=(30, 30))
     if len(faces) > 0:
         x, y, fw, fh = faces[0]
-        face_cx = x + fw // 2
-        face_cy = y + fh // 2
+        face_cx, face_cy = x + fw // 2, y + fh // 2
     else:
         face_cx, face_cy = w // 2, h // 3
-
     new_h = int(w * (1 / target_ratio))
-    third_y = h // 3
-    top = max(0, face_cy - third_y)
+    top = max(0, face_cy - h // 3)
     bottom = top + new_h
     if bottom > h:
         bottom = h
         top = max(0, bottom - new_h)
-    cropped = img[top:bottom, 0:w]
-    cv2.imwrite(output_path, cropped)
+    cv2.imwrite(output_path, img[top:bottom, 0:w])
     return output_path
 
 
@@ -53,9 +48,7 @@ def portrait_crop_by_head_size(image_path: str, output_path: str,
         return image_path
     x, y, fw, fh = faces[0]
     target_h = int(fh / head_fraction)
-    padding_top = int(fh * 0.3)
-    top = max(0, y - padding_top)
+    top = max(0, y - int(fh * 0.3))
     bottom = min(h, top + target_h)
-    cropped = img[top:bottom, 0:w]
-    cv2.imwrite(output_path, cropped)
+    cv2.imwrite(output_path, img[top:bottom, 0:w])
     return output_path

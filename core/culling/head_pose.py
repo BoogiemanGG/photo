@@ -1,23 +1,21 @@
 import cv2
-import numpy as np
 import os
+import threading
 from config import HEAD_POSE_YAW_MAX
 
-_face_cascade = None
-_profile_cascade = None
+_local = threading.local()
 
 
 def _cascades():
-    global _face_cascade, _profile_cascade
-    if _face_cascade is None:
+    if not hasattr(_local, "face"):
         data = cv2.data.haarcascades
-        _face_cascade = cv2.CascadeClassifier(
+        _local.face = cv2.CascadeClassifier(
             os.path.join(data, "haarcascade_frontalface_default.xml")
         )
-        _profile_cascade = cv2.CascadeClassifier(
+        _local.profile = cv2.CascadeClassifier(
             os.path.join(data, "haarcascade_profileface.xml")
         )
-    return _face_cascade, _profile_cascade
+    return _local.face, _local.profile
 
 
 def estimate_head_pose(image_path: str) -> dict:
@@ -32,10 +30,8 @@ def estimate_head_pose(image_path: str) -> dict:
         return {"faces": [], "passed": True, "note": "no_face"}
     faces = []
     for _ in frontal:
-        # Frontal detection = looking at camera (yaw ≈ 0)
         faces.append({"yaw": 0.0, "looking_at_camera": True, "method": "frontal"})
     for _ in profile:
-        # Profile detection = turned away
         faces.append({"yaw": 90.0, "looking_at_camera": False, "method": "profile"})
     all_looking = all(f["looking_at_camera"] for f in faces)
     return {"faces": faces, "passed": all_looking}

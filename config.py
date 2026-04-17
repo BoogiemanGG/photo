@@ -14,7 +14,7 @@ DUPLICATE_THRESHOLD = 10      # pHash hamming distance — below = duplicate
 BLINK_RATIO_MIN = 0.20        # Eye aspect ratio — below = eyes closed
 EXPRESSION_MIN_SCORE = 0.30   # DeepFace confidence — below = bad expression
 HEAD_POSE_YAW_MAX = 40        # Degrees — above = not looking at camera
-MOTION_BLUR_THRESHOLD = 15    # FFT high-freq ratio — below = motion blur
+MOTION_BLUR_THRESHOLD = 5     # FFT high-freq ratio — below = motion blur
 
 # --- Editing defaults ---
 WB_ALGORITHM = "gray_world"   # gray_world | white_patch

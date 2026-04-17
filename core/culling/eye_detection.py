@@ -1,23 +1,21 @@
 import cv2
-import numpy as np
 import os
+import threading
 from config import BLINK_RATIO_MIN
 
-_face_cascade = None
-_eye_cascade = None
+_local = threading.local()
 
 
 def _cascades():
-    global _face_cascade, _eye_cascade
-    if _face_cascade is None:
+    if not hasattr(_local, "face"):
         data = cv2.data.haarcascades
-        _face_cascade = cv2.CascadeClassifier(
+        _local.face = cv2.CascadeClassifier(
             os.path.join(data, "haarcascade_frontalface_default.xml")
         )
-        _eye_cascade = cv2.CascadeClassifier(
+        _local.eye = cv2.CascadeClassifier(
             os.path.join(data, "haarcascade_eye_tree_eyeglasses.xml")
         )
-    return _face_cascade, _eye_cascade
+    return _local.face, _local.eye
 
 
 def detect_eyes(image_path: str) -> dict:
@@ -31,7 +29,7 @@ def detect_eyes(image_path: str) -> dict:
         return {"all_eyes_open": None, "passed": True, "note": "no_face"}
     face_results = []
     for x, y, w, h in faces:
-        roi = gray[y:y + h // 2, x:x + w]  # upper half — where eyes are
+        roi = gray[y:y + h // 2, x:x + w]
         eyes = eye_c.detectMultiScale(roi, 1.1, 5, minSize=(10, 10))
         eyes_open = len(eyes) >= 2
         face_results.append({"eyes_detected": int(len(eyes)), "eyes_open": eyes_open})

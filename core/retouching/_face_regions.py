@@ -5,22 +5,21 @@ Returns estimated ROI rectangles for eyes, mouth, cheeks, under-eyes.
 import cv2
 import numpy as np
 import os
+import threading
 
-_face_cascade = None
-_eye_cascade = None
+_local = threading.local()
 
 
 def _load():
-    global _face_cascade, _eye_cascade
-    if _face_cascade is None:
+    if not hasattr(_local, "face"):
         data = cv2.data.haarcascades
-        _face_cascade = cv2.CascadeClassifier(
+        _local.face = cv2.CascadeClassifier(
             os.path.join(data, "haarcascade_frontalface_default.xml")
         )
-        _eye_cascade = cv2.CascadeClassifier(
+        _local.eye = cv2.CascadeClassifier(
             os.path.join(data, "haarcascade_eye_tree_eyeglasses.xml")
         )
-    return _face_cascade, _eye_cascade
+    return _local.face, _local.eye
 
 
 def get_face_regions(img: np.ndarray) -> list[dict]:
