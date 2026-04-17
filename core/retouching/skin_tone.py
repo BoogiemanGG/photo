@@ -1,45 +1,31 @@
 import cv2
 import numpy as np
-import mediapipe as mp
-
-_mesh = None
-CHEEK_LEFT = [234, 93, 132, 58]
-CHEEK_RIGHT = [454, 323, 361, 288]
-
-
-def _get_mesh():
-    global _mesh
-    if _mesh is None:
-        _mesh = mp.solutions.face_mesh.FaceMesh(
-            static_image_mode=True, max_num_faces=1
-        )
-    return _mesh
+from core.retouching._face_regions import get_face_regions
 
 
 def classify_skin_tone(image_path: str) -> dict:
     img = cv2.imread(image_path)
     if img is None:
         return {"tone": "unknown", "hex": None}
-    h, w = img.shape[:2]
-    rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    results = _get_mesh().process(rgb)
-    if not results.multi_face_landmarks:
+    regions = get_face_regions(img)
+    if not regions:
         return {"tone": "unknown", "hex": None}
-    lm = results.multi_face_landmarks[0].landmark
-    sample_pts = CHEEK_LEFT + CHEEK_RIGHT
+    r = regions[0]
     pixels = []
-    for idx in sample_pts:
-        x = int(lm[idx].x * w)
-        y = int(lm[idx].y * h)
-        x = np.clip(x, 0, w - 1)
-        y = np.clip(y, 0, h - 1)
-        pixels.append(img[y, x])
+    for key in ("left_cheek", "right_cheek"):
+        x, y, w, h = r[key]
+        x, y = max(0, x), max(0, y)
+        w = min(w, img.shape[1] - x)
+        h = min(h, img.shape[0] - y)
+        if w > 0 and h > 0:
+            roi = img[y:y + h, x:x + w]
+            pixels.append(roi.mean(axis=(0, 1)))
     if not pixels:
         return {"tone": "unknown", "hex": None}
     avg = np.mean(pixels, axis=0).astype(int)
-    b, g, r = int(avg[0]), int(avg[1]), int(avg[2])
-    hex_color = "#{:02x}{:02x}{:02x}".format(r, g, b)
-    brightness = (r + g + b) / 3
+    b, g, rv = int(avg[0]), int(avg[1]), int(avg[2])
+    hex_color = "#{:02x}{:02x}{:02x}".format(rv, g, b)
+    brightness = (rv + g + b) / 3
     if brightness > 200:
         tone = "very_light"
     elif brightness > 160:
@@ -52,4 +38,4 @@ def classify_skin_tone(image_path: str) -> dict:
         tone = "dark"
     else:
         tone = "very_dark"
-    return {"tone": tone, "hex": hex_color, "rgb": [r, g, b]}
+    return {"tone": tone, "hex": hex_color, "rgb": [rv, g, b]}

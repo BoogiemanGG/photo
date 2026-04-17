@@ -1,27 +1,18 @@
 import cv2
 import numpy as np
-import mediapipe as mp
-
-_segmenter = None
-
-
-def _get_segmenter():
-    global _segmenter
-    if _segmenter is None:
-        _segmenter = mp.solutions.selfie_segmentation.SelfieSegmentation(model_selection=1)
-    return _segmenter
+from rembg import remove
 
 
 def get_subject_mask(image_path: str) -> np.ndarray | None:
-    img = cv2.imread(image_path)
-    if img is None:
-        return None
-    rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    results = _get_segmenter().process(rgb)
-    if results.segmentation_mask is None:
-        return None
-    mask = (results.segmentation_mask > 0.5).astype(np.uint8) * 255
-    return mask
+    with open(image_path, "rb") as f:
+        inp = f.read()
+    out = remove(inp)
+    # rembg returns RGBA PNG — alpha channel is the mask
+    import io
+    from PIL import Image
+    img_pil = Image.open(io.BytesIO(out)).convert("RGBA")
+    alpha = np.array(img_pil)[:, :, 3]
+    return alpha
 
 
 def apply_subject_mask(image_path: str, output_path: str,
@@ -32,8 +23,12 @@ def apply_subject_mask(image_path: str, output_path: str,
     mask = get_subject_mask(image_path)
     if mask is None:
         return image_path
+    # Resize mask to match image if needed
+    if mask.shape != img.shape[:2]:
+        mask = cv2.resize(mask, (img.shape[1], img.shape[0]))
     bg = np.full_like(img, background_color[::-1])
-    mask_3ch = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
-    result = np.where(mask_3ch > 127, img, bg)
-    cv2.imwrite(output_path, result)
+    mask_3ch = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR).astype(np.float32) / 255.0
+    result = (img.astype(np.float32) * mask_3ch +
+              bg.astype(np.float32) * (1 - mask_3ch))
+    cv2.imwrite(output_path, result.clip(0, 255).astype(np.uint8))
     return output_path

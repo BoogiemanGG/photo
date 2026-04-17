@@ -8,7 +8,7 @@ def extract_palette(image_path: str, n_colors: int = 6) -> list[dict]:
         {
             "rgb": list(color.rgb),
             "hex": "#{:02x}{:02x}{:02x}".format(*color.rgb),
-            "frequency": round(color.frequency, 4),
+            "frequency": round(float(color.freq), 4),
         }
         for color in palette
     ]

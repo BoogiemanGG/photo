@@ -1,19 +1,6 @@
 import cv2
 import numpy as np
-import mediapipe as mp
-
-_mesh = None
-LEFT_IRIS = [474, 475, 476, 477]
-RIGHT_IRIS = [469, 470, 471, 472]
-
-
-def _get_mesh():
-    global _mesh
-    if _mesh is None:
-        _mesh = mp.solutions.face_mesh.FaceMesh(
-            static_image_mode=True, max_num_faces=5, refine_landmarks=True
-        )
-    return _mesh
+from core.retouching._face_regions import get_face_regions, make_region_mask
 
 
 def change_eye_color(image_path: str, output_path: str,
@@ -21,21 +8,26 @@ def change_eye_color(image_path: str, output_path: str,
     img = cv2.imread(image_path)
     if img is None:
         return image_path
-    h, w = img.shape[:2]
-    rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    results = _get_mesh().process(rgb)
-    if not results.multi_face_landmarks:
+    regions = get_face_regions(img)
+    if not regions:
         cv2.imwrite(output_path, img)
         return output_path
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV).copy()
-    for face in results.multi_face_landmarks:
-        for indices in (LEFT_IRIS, RIGHT_IRIS):
-            pts = np.array([[int(face.landmark[i].x * w),
-                              int(face.landmark[i].y * h)] for i in indices])
-            mask = np.zeros((h, w), dtype=np.uint8)
-            cv2.fillConvexPoly(mask, pts, 255)
-            mask = cv2.dilate(mask, np.ones((3, 3), dtype=np.uint8), iterations=2)
-            hsv[:, :, 0] = np.where(mask > 0, target_hue // 2, hsv[:, :, 0])
+    for r in regions:
+        for key in ("left_eye", "right_eye"):
+            x, y, w, h = r[key]
+            x, y = max(0, x), max(0, y)
+            w = min(w, img.shape[1] - x)
+            h = min(h, img.shape[0] - y)
+            if w <= 0 or h <= 0:
+                continue
+            # Only change iris-colored pixels (not white sclera, not dark pupil)
+            roi_v = hsv[y:y + h, x:x + w, 2]
+            iris_mask = (roi_v > 40) & (roi_v < 200)
+            hsv[y:y + h, x:x + w, 0][iris_mask] = target_hue // 2
+            hsv[y:y + h, x:x + w, 1][iris_mask] = np.clip(
+                hsv[y:y + h, x:x + w, 1][iris_mask], 80, 255
+            )
     result = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
     cv2.imwrite(output_path, result)
     return output_path

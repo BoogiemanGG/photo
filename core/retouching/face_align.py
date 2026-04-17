@@ -1,19 +1,22 @@
 import cv2
 import numpy as np
-import mediapipe as mp
+import os
 
-_mesh = None
-LEFT_EYE_CENTER = 468
-RIGHT_EYE_CENTER = 473
+_face_cascade = None
+_eye_cascade = None
 
 
-def _get_mesh():
-    global _mesh
-    if _mesh is None:
-        _mesh = mp.solutions.face_mesh.FaceMesh(
-            static_image_mode=True, max_num_faces=1, refine_landmarks=True
+def _load():
+    global _face_cascade, _eye_cascade
+    if _face_cascade is None:
+        data = cv2.data.haarcascades
+        _face_cascade = cv2.CascadeClassifier(
+            os.path.join(data, "haarcascade_frontalface_default.xml")
         )
-    return _mesh
+        _eye_cascade = cv2.CascadeClassifier(
+            os.path.join(data, "haarcascade_eye_tree_eyeglasses.xml")
+        )
+    return _face_cascade, _eye_cascade
 
 
 def align_face(image_path: str, output_path: str,
@@ -22,18 +25,24 @@ def align_face(image_path: str, output_path: str,
     if img is None:
         return image_path
     h, w = img.shape[:2]
-    rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    results = _get_mesh().process(rgb)
-    if not results.multi_face_landmarks:
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    face_c, eye_c = _load()
+    faces = face_c.detectMultiScale(gray, 1.1, 5, minSize=(40, 40))
+    if not len(faces):
         return image_path
-    lm = results.multi_face_landmarks[0].landmark
-    left_eye = (int(lm[LEFT_EYE_CENTER].x * w), int(lm[LEFT_EYE_CENTER].y * h))
-    right_eye = (int(lm[RIGHT_EYE_CENTER].x * w), int(lm[RIGHT_EYE_CENTER].y * h))
+    fx, fy, fw, fh = faces[0]
+    roi_gray = gray[fy:fy + fh // 2, fx:fx + fw]
+    eyes = eye_c.detectMultiScale(roi_gray, 1.1, 5, minSize=(10, 10))
+    if len(eyes) < 2:
+        return image_path
+    # Sort eyes left to right
+    eyes = sorted(eyes, key=lambda e: e[0])
+    left_eye = (fx + eyes[0][0] + eyes[0][2] // 2, fy + eyes[0][1] + eyes[0][3] // 2)
+    right_eye = (fx + eyes[1][0] + eyes[1][2] // 2, fy + eyes[1][1] + eyes[1][3] // 2)
     dx = right_eye[0] - left_eye[0]
     dy = right_eye[1] - left_eye[1]
     angle = np.degrees(np.arctan2(dy, dx))
-    eye_center = ((left_eye[0] + right_eye[0]) // 2,
-                  (left_eye[1] + right_eye[1]) // 2)
+    eye_center = ((left_eye[0] + right_eye[0]) // 2, (left_eye[1] + right_eye[1]) // 2)
     M = cv2.getRotationMatrix2D(eye_center, angle, 1.0)
     aligned = cv2.warpAffine(img, M, (w, h), flags=cv2.INTER_LINEAR,
                               borderMode=cv2.BORDER_REFLECT)
