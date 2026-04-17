@@ -8,6 +8,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+if sys.version_info < (3, 11, 3):
+    print(
+        f"ERROR: Python 3.11.3 or later required "
+        f"(you have {sys.version.split()[0]}). "
+        f"Download from https://python.org/downloads/"
+    )
+    sys.exit(1)
+
 import customtkinter as ctk
 
 from i18n import t as _t, set_lang, get_lang
