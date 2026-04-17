@@ -21,6 +21,7 @@ class SettingsView(ctk.CTkFrame):
         appear_card = card_frame(self)
         appear_card.grid(row=0, column=0, sticky="ew", pady=(0, 12))
         appear_card.grid_columnconfigure(1, weight=1)
+        appear_card.grid_columnconfigure(2, minsize=56)
 
         section_label(appear_card, self._t("settings.title")).grid(
             row=0, column=0, columnspan=2, sticky="w", padx=16, pady=(12, 8)
@@ -62,6 +63,10 @@ class SettingsView(ctk.CTkFrame):
         self._quality_var = ctk.IntVar(value=OUTPUT_QUALITY)
         ctk.CTkSlider(appear_card, from_=60, to=100, variable=self._quality_var,
                       number_of_steps=40).grid(row=4, column=1, sticky="ew", padx=16, pady=4)
+        ctk.CTkLabel(appear_card, textvariable=self._quality_var,
+                     font=ctk.CTkFont(size=11), text_color=MUTED, width=40).grid(
+            row=4, column=2, padx=(0, 16), pady=4
+        )
 
         ctk.CTkLabel(appear_card, text=self._t("settings.xmp_export"),
                      font=ctk.CTkFont(size=12)).grid(row=5, column=0, sticky="w", padx=16, pady=(4, 14))
