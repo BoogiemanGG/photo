@@ -1,0 +1,227 @@
+{
+  "_meta": {
+    "language": "Hrvatski",
+    "code": "hr",
+    "version": "1.0"
+  },
+
+  "app": {
+    "name": "PhotoStudioHub",
+    "tagline": "AI obrada fotografija",
+    "version": "Verzija"
+  },
+
+  "nav": {
+    "cull": "Selekcija",
+    "edit": "Uređivanje",
+    "retouch": "Retuširanje",
+    "full_pipeline": "Potpuna obrada",
+    "settings": "Postavke",
+    "reports": "Izvještaji",
+    "about": "O programu"
+  },
+
+  "trial": {
+    "days_remaining": "Probna verzija: još {n} dana",
+    "expired": "Probna verzija istekla — aktiviraj licencu",
+    "activate": "Aktiviraj licencu",
+    "buy_now": "Kupi sada",
+    "enter_key": "Unesi ključ licence",
+    "key_valid": "Licenca aktivirana!",
+    "key_invalid": "Nevažeći ključ licence",
+    "trial_active": "14-dnevna besplatna proba aktivna",
+    "full_access": "Puni pristup — {tier} plan"
+  },
+
+  "pipeline": {
+    "select_input": "Odaberi ulaznu mapu",
+    "select_output": "Odaberi izlaznu mapu",
+    "select_profile": "Odaberi preset profil",
+    "start": "Pokreni",
+    "stop": "Zaustavi",
+    "processing": "Obrada u tijeku…",
+    "done": "Završeno",
+    "photos_found": "Pronađeno {n} fotografija",
+    "photos_processed": "{n} od {total} obrađeno",
+    "elapsed": "Proteklo: {t}",
+    "eta": "Preostalo: {t}"
+  },
+
+  "cull": {
+    "title": "Selekcija fotografija",
+    "description": "Automatski odabire najbolje fotografije iz serije",
+    "selects": "Odabrane",
+    "rejects": "Odbačene",
+    "total": "Ukupno",
+    "score": "Ocjena",
+    "reason": "Razlog",
+    "passed": "Prošla",
+    "rejected": "Odbijena"
+  },
+
+  "edit": {
+    "title": "Uređivanje fotografija",
+    "description": "Primjenjuje AI korekcije i poboljšanja",
+    "profile": "Profil"
+  },
+
+  "retouch": {
+    "title": "Retuširanje",
+    "description": "AI poboljšanje kože, očiju i crta lica"
+  },
+
+  "settings": {
+    "title": "Postavke",
+    "language": "Jezik",
+    "theme": "Tema",
+    "theme_dark": "Tamna",
+    "theme_light": "Svijetla",
+    "gpu": "GPU ubrzanje",
+    "output_format": "Format izlaza",
+    "output_quality": "JPEG kvaliteta",
+    "workers": "Niti za obradu",
+    "xmp_export": "Izvoz XMP sidecar datoteka",
+    "save": "Spremi",
+    "reset": "Vrati zadane postavke"
+  },
+
+  "thresholds": {
+    "title": "Pragovi selekcije",
+    "sharpness_min": "Minimalna oštrina",
+    "noise_max": "Maksimalni šum",
+    "exposure_low": "Granica podeksponiranosti",
+    "exposure_high": "Granica preeksponiranosti",
+    "duplicate_threshold": "Osjetljivost na duplikate",
+    "blink_ratio_min": "Omjer otvorenosti očiju",
+    "expression_min_score": "Ocjena izraza lica",
+    "head_pose_yaw_max": "Maks. kut glave (°)",
+    "motion_blur_threshold": "Prag zamagljenosti kretanja"
+  },
+
+  "profiles": {
+    "natural_warm": "Prirodno toplo",
+    "light_airy": "Svijetlo i prozračno",
+    "moody_dark": "Mračno raspoloženje",
+    "classic_bw": "Klasično crno-bijelo"
+  },
+
+  "rejection_reasons": {
+    "blurry": "Mutno",
+    "overexposed": "Preeksponiranost",
+    "underexposed": "Podeksponiranost",
+    "noisy": "Šumno",
+    "motion_blur": "Zamagljenost kretanjem",
+    "eyes_closed": "Zatvorene oči",
+    "bad_expression": "Loš izraz lica",
+    "duplicate": "Duplikat",
+    "head_turned": "Glava okrenuta"
+  },
+
+  "features": {
+    "culling": {
+      "title": "AI selekcija fotografija",
+      "f01": "Detekcija oštrine (Laplace varijanca)",
+      "f02": "Analiza ekspozicije (pod-/preeksponiranost)",
+      "f03": "Detekcija šuma",
+      "f04": "Detekcija zamagljenosti kretanjem (FFT)",
+      "f05": "Percepcijsko prepoznavanje duplikata (pHash)",
+      "f06": "Detekcija treptanja / zatvorenih očiju",
+      "f07": "Ocjenjivanje izraza lica",
+      "f08": "Detekcija lica (frontalno + profil)",
+      "f09": "Procjena položaja glave (yaw)",
+      "f10": "Grupiranje serijskih snimaka i odabir najboljeg",
+      "f11": "Grupiranje po GPS lokaciji",
+      "f12": "Grupiranje po događaju / vremenskoj liniji",
+      "f13": "Prijedlog kadra po pravilu trećine",
+      "f14": "Portretni kadar prema veličini glave",
+      "f15": "Procjena dobi i spola",
+      "f16": "Izvoz izvještaja selekcije (JSON + XMP)"
+    },
+    "editing": {
+      "title": "AI uređivanje fotografija",
+      "f01": "Korekcija bijele balance (sivi svijet / bijela mrlja)",
+      "f02": "Podešavanje ekspozicije i svjetline",
+      "f03": "Smanjenje šuma (fastNlMeans)",
+      "f04": "Oštrenje (unsharp maska)",
+      "f05": "Efekt vinjete",
+      "f06": "Bokeh / zamagljenost portretne pozadine",
+      "f07": "Povećanje rezolucije 2× / 4× (Real-ESRGAN)",
+      "f08": "Konverzija RAW datoteka (CR2, NEF, ARW, DNG…)",
+      "f09": "Preset profili (toplo, prozračno, mračno, crno-bijelo)",
+      "f10": "LUT bojanje boja",
+      "f11": "Ekstrakcija palete boja",
+      "f12": "Čuvanje EXIF metapodataka",
+      "f13": "Automatsko ispravljanje horizonta",
+      "f14": "Korekcija distorzije objektiva",
+      "f15": "Korekcija kromatske aberacije",
+      "f16": "Uklanjanje prašinastih mrlja",
+      "f17": "Pipeline za serijsku obradu"
+    },
+    "retouching": {
+      "title": "AI retuširanje",
+      "f01": "Zaglađivanje kože (bilateralni filtar)",
+      "f02": "Uklanjanje mana i mrlja (inpainting)",
+      "f03": "Smanjenje sjaja / masnoće kože",
+      "f04": "Osvjetljavanje očiju",
+      "f05": "Bijeljenje zuba",
+      "f06": "Smanjenje podočnjaka",
+      "f07": "Poboljšanje boje šarenice",
+      "f08": "Analiza i izvještaj tena kože",
+      "f09": "Poravnanje lica (rotacija po osi očiju)",
+      "f10": "Uklanjanje pozadine (U2Net)",
+      "f11": "Segmentacija portreta",
+      "f12": "Potpuna serijalna retuš pipeline",
+      "f13": "Osvjetljavanje područja ispod očiju",
+      "f14": "Automatsko prepoznavanje regija lica",
+      "f15": "Poboljšanje tona usana",
+      "f16": "Izvoz XMP sidecar datoteka",
+      "f17": "Serijsko preimenovanje s EXIF datumom"
+    }
+  },
+
+  "pricing": {
+    "title": "Cijene",
+    "pro_name": "Pro",
+    "pro_photos": "{n} fotografija / mjesec",
+    "pro_monthly": "€{price} / mjesec",
+    "unlimited_name": "Unlimited",
+    "unlimited_desc": "Neograničene fotografije",
+    "unlimited_monthly": "€{price} / mjesec",
+    "annual_save": "Uštedi 2 mjeseca uz godišnju naplatu",
+    "pro_annual": "€{price} / godina",
+    "unlimited_annual": "€{price} / godina",
+    "trial_cta": "Pokreni 14-dnevnu besplatnu probu — bez kreditne kartice"
+  },
+
+  "report": {
+    "title": "Izvještaj obrade",
+    "summary": "Sažetak",
+    "total_input": "Ukupno ulaznih fotografija",
+    "total_selects": "Odabrane",
+    "total_rejects": "Odbačene",
+    "select_rate": "Stopa selekcije",
+    "top_selects": "Najbolje odabrane",
+    "rejection_breakdown": "Razlozi odbijanja",
+    "open_folder": "Otvori izlaznu mapu",
+    "export_pdf": "Izvezi izvještaj (PDF)"
+  },
+
+  "errors": {
+    "no_input": "Nije odabrana ulazna mapa",
+    "no_output": "Nije odabrana izlazna mapa",
+    "input_empty": "Ulazna mapa je prazna",
+    "model_missing": "AI model nije pronađen — pokreni setup",
+    "license_check_fail": "Provjera licence nije uspjela",
+    "generic": "Došlo je do greške: {msg}"
+  },
+
+  "about": {
+    "title": "O programu PhotoStudioHub",
+    "desc": "Sveobuhvatna AI obrada fotografija za profesionalne studije.",
+    "offline": "100% offline — bez oblaka, bez troškova API pretplate.",
+    "contact": "Kontakt",
+    "website": "Web stranica",
+    "license": "Licenca",
+    "credits": "Pokreće OpenCV, Real-ESRGAN, DeepFace, rembg"
+  }
+}

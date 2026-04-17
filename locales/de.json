@@ -1,0 +1,227 @@
+{
+  "_meta": {
+    "language": "Deutsch",
+    "code": "de",
+    "version": "1.0"
+  },
+
+  "app": {
+    "name": "PhotoStudioHub",
+    "tagline": "KI-gestützte Fotoverarbeitung",
+    "version": "Version"
+  },
+
+  "nav": {
+    "cull": "Selektion",
+    "edit": "Bearbeitung",
+    "retouch": "Retusche",
+    "full_pipeline": "Vollpipeline",
+    "settings": "Einstellungen",
+    "reports": "Berichte",
+    "about": "Über"
+  },
+
+  "trial": {
+    "days_remaining": "Testversion: noch {n} Tage",
+    "expired": "Testversion abgelaufen — Lizenz aktivieren",
+    "activate": "Lizenz aktivieren",
+    "buy_now": "Jetzt kaufen",
+    "enter_key": "Lizenzschlüssel eingeben",
+    "key_valid": "Lizenz aktiviert!",
+    "key_invalid": "Ungültiger Lizenzschlüssel",
+    "trial_active": "14-tägige kostenlose Testversion aktiv",
+    "full_access": "Vollzugang — {tier}-Tarif"
+  },
+
+  "pipeline": {
+    "select_input": "Eingabeordner auswählen",
+    "select_output": "Ausgabeordner auswählen",
+    "select_profile": "Preset-Profil auswählen",
+    "start": "Starten",
+    "stop": "Stoppen",
+    "processing": "Wird verarbeitet…",
+    "done": "Fertig",
+    "photos_found": "{n} Fotos gefunden",
+    "photos_processed": "{n} von {total} verarbeitet",
+    "elapsed": "Vergangen: {t}",
+    "eta": "Verbleibend: {t}"
+  },
+
+  "cull": {
+    "title": "Foto-Selektion",
+    "description": "Wählt automatisch die besten Fotos aus Ihrem Stapel aus",
+    "selects": "Auswahl",
+    "rejects": "Ausschuss",
+    "total": "Gesamt",
+    "score": "Bewertung",
+    "reason": "Grund",
+    "passed": "Bestanden",
+    "rejected": "Abgelehnt"
+  },
+
+  "edit": {
+    "title": "Fotobearbeitung",
+    "description": "Wendet KI-gestützte Korrekturen und Verbesserungen an",
+    "profile": "Profil"
+  },
+
+  "retouch": {
+    "title": "Retusche",
+    "description": "KI-gestützte Verbesserung von Haut, Augen und Gesichtsmerkmalen"
+  },
+
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "theme": "Design",
+    "theme_dark": "Dunkel",
+    "theme_light": "Hell",
+    "gpu": "GPU-Beschleunigung",
+    "output_format": "Ausgabeformat",
+    "output_quality": "JPEG-Qualität",
+    "workers": "Verarbeitungs-Threads",
+    "xmp_export": "XMP-Sidecars exportieren",
+    "save": "Speichern",
+    "reset": "Auf Standardwerte zurücksetzen"
+  },
+
+  "thresholds": {
+    "title": "Selektionsschwellenwerte",
+    "sharpness_min": "Mindestschärfe",
+    "noise_max": "Maximales Rauschen",
+    "exposure_low": "Unterbelichtungsgrenze",
+    "exposure_high": "Überbelichtungsgrenze",
+    "duplicate_threshold": "Duplikatempfindlichkeit",
+    "blink_ratio_min": "Augenöffnungs-Verhältnis",
+    "expression_min_score": "Ausdrucksbewertung",
+    "head_pose_yaw_max": "Max. Kopfneigung (°)",
+    "motion_blur_threshold": "Bewegungsunschärfe-Schwelle"
+  },
+
+  "profiles": {
+    "natural_warm": "Natürlich Warm",
+    "light_airy": "Hell & Luftig",
+    "moody_dark": "Stimmungsvoll Dunkel",
+    "classic_bw": "Klassisches S/W"
+  },
+
+  "rejection_reasons": {
+    "blurry": "Unscharf",
+    "overexposed": "Überbelichtet",
+    "underexposed": "Unterbelichtet",
+    "noisy": "Verrauscht",
+    "motion_blur": "Bewegungsunschärfe",
+    "eyes_closed": "Augen geschlossen",
+    "bad_expression": "Schlechter Ausdruck",
+    "duplicate": "Duplikat",
+    "head_turned": "Kopf abgewandt"
+  },
+
+  "features": {
+    "culling": {
+      "title": "KI-Foto-Selektion",
+      "f01": "Schärfeerkennung (Laplace-Varianz)",
+      "f02": "Belichtungsanalyse (unter-/überbelichtet)",
+      "f03": "Rauschenerkennung",
+      "f04": "Bewegungsunschärfe-Erkennung (FFT)",
+      "f05": "Perzeptuelle Duplikaterkennung (pHash)",
+      "f06": "Augen-Blinzel-/Schluss-Erkennung",
+      "f07": "Gesichtsausdruck-Bewertung",
+      "f08": "Gesichtserkennung (frontal + Profil)",
+      "f09": "Kopfpositionsschätzung (Gieren)",
+      "f10": "Serienaufnahmen-Gruppierung & Bestes-Bild-Auswahl",
+      "f11": "GPS-Standortgruppierung",
+      "f12": "Ereignis-/Zeitachsengruppierung",
+      "f13": "Bildausschnitt-Vorschlag (Drittelregel)",
+      "f14": "Portraitschnitt nach Kopfgröße",
+      "f15": "Alters- und Geschlechtsschätzung",
+      "f16": "Selektionsbericht-Export (JSON + XMP)"
+    },
+    "editing": {
+      "title": "KI-Fotobearbeitung",
+      "f01": "Weißabgleich (Grauworld / Weißer Patch)",
+      "f02": "Belichtungs- & Helligkeitsanpassung",
+      "f03": "Rauschreduzierung (fastNlMeans)",
+      "f04": "Schärfung (Unscharf maskieren)",
+      "f05": "Vignetten-Effekt",
+      "f06": "Bokeh / Porträt-Hintergrundunschärfe",
+      "f07": "Super-Resolution-Hochskalierung 2× / 4× (Real-ESRGAN)",
+      "f08": "RAW-Dateikonvertierung (CR2, NEF, ARW, DNG…)",
+      "f09": "Preset-Profile (Warm, Luftig, Stimmungsvoll, S/W)",
+      "f10": "LUT-Farbabstufung",
+      "f11": "Farbpaletten-Extraktion",
+      "f12": "EXIF-Metadaten-Erhalt",
+      "f13": "Automatische Horizontbegradignung",
+      "f14": "Objektivverzeichnungskorrektur",
+      "f15": "Chromatische Aberrationskorrektur",
+      "f16": "Staubflecken-Entfernung",
+      "f17": "Stapelbearbeitungs-Pipeline"
+    },
+    "retouching": {
+      "title": "KI-Retusche",
+      "f01": "Hautglättung (Bilateraler Filter)",
+      "f02": "Makel- & Fleckenentfernung (Inpainting)",
+      "f03": "Hautglanz-/Fettglanz-Reduzierung",
+      "f04": "Augenaufhellung",
+      "f05": "Zahnaufhellung",
+      "f06": "Augenringe reduzieren",
+      "f07": "Augenfarben-Verbesserung",
+      "f08": "Hauttonfarbanalyse & -bericht",
+      "f09": "Gesichtsausrichtung (Augenachsen-Rotation)",
+      "f10": "Hintergrundentfernung (U2Net)",
+      "f11": "Portraitsegmentierung",
+      "f12": "Vollständige Stapel-Retusche-Pipeline",
+      "f13": "Unteraugenbereich aufhellen",
+      "f14": "Automatische Gesichtsbereichserkennung",
+      "f15": "Lippentonverbesserung",
+      "f16": "XMP-Sidecar-Export",
+      "f17": "Stapelumbenennung mit EXIF-Datum"
+    }
+  },
+
+  "pricing": {
+    "title": "Preise",
+    "pro_name": "Pro",
+    "pro_photos": "{n} Fotos / Monat",
+    "pro_monthly": "€{price} / Monat",
+    "unlimited_name": "Unlimited",
+    "unlimited_desc": "Unbegrenzte Fotos",
+    "unlimited_monthly": "€{price} / Monat",
+    "annual_save": "2 Monate kostenlos bei Jahresabrechnung",
+    "pro_annual": "€{price} / Jahr",
+    "unlimited_annual": "€{price} / Jahr",
+    "trial_cta": "14-tägige kostenlose Testversion starten — keine Kreditkarte erforderlich"
+  },
+
+  "report": {
+    "title": "Verarbeitungsbericht",
+    "summary": "Zusammenfassung",
+    "total_input": "Eingabefotos gesamt",
+    "total_selects": "Auswahl",
+    "total_rejects": "Ausschuss",
+    "select_rate": "Auswahlrate",
+    "top_selects": "Top-Auswahl",
+    "rejection_breakdown": "Ablehnungsgründe",
+    "open_folder": "Ausgabeordner öffnen",
+    "export_pdf": "Bericht exportieren (PDF)"
+  },
+
+  "errors": {
+    "no_input": "Kein Eingabeordner ausgewählt",
+    "no_output": "Kein Ausgabeordner ausgewählt",
+    "input_empty": "Eingabeordner ist leer",
+    "model_missing": "KI-Modell nicht gefunden — Setup zuerst ausführen",
+    "license_check_fail": "Lizenzprüfung fehlgeschlagen",
+    "generic": "Ein Fehler ist aufgetreten: {msg}"
+  },
+
+  "about": {
+    "title": "Über PhotoStudioHub",
+    "desc": "All-in-one KI-Fotoverarbeitung für professionelle Studios.",
+    "offline": "100% offline — keine Cloud, keine Abo-API-Kosten.",
+    "contact": "Kontakt",
+    "website": "Website",
+    "license": "Lizenz",
+    "credits": "Powered by OpenCV, Real-ESRGAN, DeepFace, rembg"
+  }
+}

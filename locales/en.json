@@ -1,0 +1,227 @@
+{
+  "_meta": {
+    "language": "English",
+    "code": "en",
+    "version": "1.0"
+  },
+
+  "app": {
+    "name": "PhotoStudioHub",
+    "tagline": "AI-Powered Photo Processing",
+    "version": "Version"
+  },
+
+  "nav": {
+    "cull": "Cull",
+    "edit": "Edit",
+    "retouch": "Retouch",
+    "full_pipeline": "Full Pipeline",
+    "settings": "Settings",
+    "reports": "Reports",
+    "about": "About"
+  },
+
+  "trial": {
+    "days_remaining": "Trial: {n} days remaining",
+    "expired": "Trial expired — activate license",
+    "activate": "Activate License",
+    "buy_now": "Buy Now",
+    "enter_key": "Enter License Key",
+    "key_valid": "License activated!",
+    "key_invalid": "Invalid license key",
+    "trial_active": "14-day free trial active",
+    "full_access": "Full access — {tier} plan"
+  },
+
+  "pipeline": {
+    "select_input": "Select Input Folder",
+    "select_output": "Select Output Folder",
+    "select_profile": "Select Preset Profile",
+    "start": "Start",
+    "stop": "Stop",
+    "processing": "Processing…",
+    "done": "Done",
+    "photos_found": "{n} photos found",
+    "photos_processed": "{n} of {total} processed",
+    "elapsed": "Elapsed: {t}",
+    "eta": "ETA: {t}"
+  },
+
+  "cull": {
+    "title": "Photo Culling",
+    "description": "Automatically selects the best photos from your batch",
+    "selects": "Selects",
+    "rejects": "Rejects",
+    "total": "Total",
+    "score": "Score",
+    "reason": "Reason",
+    "passed": "Passed",
+    "rejected": "Rejected"
+  },
+
+  "edit": {
+    "title": "Photo Editing",
+    "description": "Applies AI-powered corrections and enhancements",
+    "profile": "Profile"
+  },
+
+  "retouch": {
+    "title": "Retouching",
+    "description": "AI skin, eyes, and facial feature enhancement"
+  },
+
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "theme_dark": "Dark",
+    "theme_light": "Light",
+    "gpu": "GPU Acceleration",
+    "output_format": "Output Format",
+    "output_quality": "JPEG Quality",
+    "workers": "Processing Threads",
+    "xmp_export": "Export XMP Sidecars",
+    "save": "Save",
+    "reset": "Reset to Defaults"
+  },
+
+  "thresholds": {
+    "title": "Culling Thresholds",
+    "sharpness_min": "Minimum Sharpness",
+    "noise_max": "Maximum Noise",
+    "exposure_low": "Underexposure Limit",
+    "exposure_high": "Overexposure Limit",
+    "duplicate_threshold": "Duplicate Sensitivity",
+    "blink_ratio_min": "Eye Openness Ratio",
+    "expression_min_score": "Expression Score",
+    "head_pose_yaw_max": "Max Head Yaw (°)",
+    "motion_blur_threshold": "Motion Blur Threshold"
+  },
+
+  "profiles": {
+    "natural_warm": "Natural Warm",
+    "light_airy": "Light & Airy",
+    "moody_dark": "Moody Dark",
+    "classic_bw": "Classic B&W"
+  },
+
+  "rejection_reasons": {
+    "blurry": "Blurry",
+    "overexposed": "Overexposed",
+    "underexposed": "Underexposed",
+    "noisy": "Noisy",
+    "motion_blur": "Motion Blur",
+    "eyes_closed": "Eyes Closed",
+    "bad_expression": "Bad Expression",
+    "duplicate": "Duplicate",
+    "head_turned": "Head Turned"
+  },
+
+  "features": {
+    "culling": {
+      "title": "AI Photo Culling",
+      "f01": "Sharpness detection (Laplacian variance)",
+      "f02": "Exposure analysis (under / overexposed)",
+      "f03": "Noise detection",
+      "f04": "Motion blur detection (FFT)",
+      "f05": "Perceptual duplicate detection (pHash)",
+      "f06": "Eye blink / closed-eye detection",
+      "f07": "Facial expression scoring",
+      "f08": "Face detection (frontal + profile)",
+      "f09": "Head pose estimation (yaw)",
+      "f10": "Burst series grouping & best-shot selection",
+      "f11": "GPS location grouping",
+      "f12": "Event / timeline grouping",
+      "f13": "Rule-of-thirds crop suggestion",
+      "f14": "Portrait crop by head size",
+      "f15": "Age & gender estimation",
+      "f16": "Culling report export (JSON + XMP)"
+    },
+    "editing": {
+      "title": "AI Photo Editing",
+      "f01": "White balance correction (gray world / white patch)",
+      "f02": "Exposure & brightness adjustment",
+      "f03": "Noise reduction (fastNlMeans)",
+      "f04": "Sharpening (unsharp mask)",
+      "f05": "Vignette effect",
+      "f06": "Bokeh / portrait background blur",
+      "f07": "Super-resolution upscaling 2× / 4× (Real-ESRGAN)",
+      "f08": "RAW file conversion (CR2, NEF, ARW, DNG…)",
+      "f09": "Preset profiles (Warm, Airy, Moody, B&W)",
+      "f10": "LUT color grading",
+      "f11": "Color palette extraction",
+      "f12": "EXIF metadata preservation",
+      "f13": "Horizon auto-straightening",
+      "f14": "Lens distortion correction",
+      "f15": "Chromatic aberration fix",
+      "f16": "Dust spot removal",
+      "f17": "Batch editing pipeline"
+    },
+    "retouching": {
+      "title": "AI Retouching",
+      "f01": "Skin smoothing (bilateral filter)",
+      "f02": "Blemish & spot removal (inpainting)",
+      "f03": "Skin shine / oiliness reduction",
+      "f04": "Eye brightening",
+      "f05": "Teeth whitening",
+      "f06": "Dark circle reduction",
+      "f07": "Eye color enhancement",
+      "f08": "Skin tone analysis & reporting",
+      "f09": "Face alignment (eye-level rotation)",
+      "f10": "Background removal (U2Net)",
+      "f11": "Portrait segmentation",
+      "f12": "Full batch retouch pipeline",
+      "f13": "Under-eye brightening",
+      "f14": "Face region auto-detection",
+      "f15": "Lip tone enhancement",
+      "f16": "XMP sidecar export",
+      "f17": "Batch rename with EXIF date"
+    }
+  },
+
+  "pricing": {
+    "title": "Pricing",
+    "pro_name": "Pro",
+    "pro_photos": "{n} photos / month",
+    "pro_monthly": "€{price} / month",
+    "unlimited_name": "Unlimited",
+    "unlimited_desc": "Unlimited photos",
+    "unlimited_monthly": "€{price} / month",
+    "annual_save": "Save 2 months with annual billing",
+    "pro_annual": "€{price} / year",
+    "unlimited_annual": "€{price} / year",
+    "trial_cta": "Start 14-day free trial — no credit card required"
+  },
+
+  "report": {
+    "title": "Processing Report",
+    "summary": "Summary",
+    "total_input": "Total input photos",
+    "total_selects": "Selects",
+    "total_rejects": "Rejects",
+    "select_rate": "Selection rate",
+    "top_selects": "Top Selects",
+    "rejection_breakdown": "Rejection Reasons",
+    "open_folder": "Open Output Folder",
+    "export_pdf": "Export Report (PDF)"
+  },
+
+  "errors": {
+    "no_input": "No input folder selected",
+    "no_output": "No output folder selected",
+    "input_empty": "Input folder is empty",
+    "model_missing": "AI model not found — run setup first",
+    "license_check_fail": "License check failed",
+    "generic": "An error occurred: {msg}"
+  },
+
+  "about": {
+    "title": "About PhotoStudioHub",
+    "desc": "All-in-one AI photo processing for professional studios.",
+    "offline": "100% offline — no cloud, no subscription API fees.",
+    "contact": "Contact",
+    "website": "Website",
+    "license": "License",
+    "credits": "Powered by OpenCV, Real-ESRGAN, DeepFace, rembg"
+  }
+}
