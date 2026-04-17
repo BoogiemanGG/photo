@@ -12,6 +12,8 @@ class ActivateDialog(ctk.CTkToplevel):
         self.geometry("480x340")
         self.resizable(False, False)
         self.grab_set()
+        self.lift()
+        self.focus_force()
         self._build()
 
     def _build(self):

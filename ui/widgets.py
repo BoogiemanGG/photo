@@ -7,19 +7,25 @@ from .theme import ACCENT, MUTED, SUCCESS, DANGER, WARNING, FONT_MONO
 class TrialBanner(ctk.CTkFrame):
     """Top-of-window banner showing trial/license status."""
 
-    def __init__(self, parent, license_manager, lang_fn, **kw):
+    def __init__(self, parent, license_manager, lang_fn, activate_cb=None, **kw):
         super().__init__(parent, height=32, corner_radius=0, **kw)
         self._lm = license_manager
         self._t = lang_fn
+        self._activate_cb = activate_cb
         self._label = ctk.CTkLabel(self, text="", font=ctk.CTkFont(size=11))
         self._label.pack(side="left", padx=12)
         self._btn = ctk.CTkButton(
             self, text="", height=22, width=110,
             font=ctk.CTkFont(size=11, weight="bold"),
             corner_radius=6,
+            command=self._on_activate,
         )
         self._btn.pack(side="right", padx=8, pady=4)
         self.refresh()
+
+    def _on_activate(self):
+        if self._activate_cb:
+            self._activate_cb()
 
     def refresh(self):
         status = self._lm.status_line()

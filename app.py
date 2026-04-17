@@ -67,7 +67,8 @@ class PhotoStudioHub(ctk.CTk):
         self.grid_columnconfigure(1, weight=1)
 
         # --- Trial banner (full width, row 0) ---
-        self._banner = TrialBanner(self, self.license_manager, self.t)
+        self._banner = TrialBanner(self, self.license_manager, self.t,
+                                   activate_cb=self._open_activate)
         self._banner.grid(row=0, column=0, columnspan=2, sticky="ew")
         if self.license_manager.plan() in ("pro", "unlimited"):
             self._banner.grid_remove()
