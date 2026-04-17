@@ -5,7 +5,7 @@
 # Core image processing
 opencv-python>=4.8.0
 Pillow>=10.0.0
-numpy>=1.24.0
+numpy>=1.24.0,<2.0
 scipy>=1.11.0
 
 # RAW file support (CR2, NEF, ARW, DNG, etc.)
