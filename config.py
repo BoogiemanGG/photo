@@ -36,7 +36,7 @@ DARK_CIRCLE_BRIGHTEN = 25     # HSV value boost under eyes
 
 # --- Pipeline mode ---
 GPU_ENABLED = True            # Auto-detected at runtime
-BATCH_WORKERS = 4             # Parallel workers for CPU pipeline
+BATCH_WORKERS = 1             # Single-threaded — DeepFace/TF not thread-safe on CPU
 OUTPUT_FORMAT = "JPEG"        # JPEG | TIFF | PNG
 OUTPUT_QUALITY = 95           # JPEG quality 1-100
 XMP_EXPORT = True             # Write XMP sidecar files
