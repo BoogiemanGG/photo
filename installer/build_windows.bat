@@ -3,14 +3,29 @@ REM ─────────────────────────�
 REM PhotoStudioHub — Windows build script
 REM Run this from the project root directory.
 REM Produces: dist\PhotoStudioHub-Setup-1.0.exe
+REM
+REM Requires Python 3.11.x — uses "py -3.11" launcher so it works
+REM even if Python 3.14 (or any other version) is the system default.
 REM ──────────────────────────────────────────────────────────────────
 
+REM Verify Python 3.11 is available via the py launcher
+py -3.11 --version >nul 2>&1
+if %ERRORLEVEL% neq 0 (
+    echo ERROR: Python 3.11 not found via the py launcher.
+    echo Install Python 3.11.15 from https://python.org/downloads/
+    echo Make sure "py.exe launcher" is checked during install.
+    pause
+    exit /b 1
+)
+
+echo Using: && py -3.11 --version
+
 echo [1/3] Installing / updating dependencies...
-pip install -r requirements.txt -q
-pip install pyinstaller -q
+py -3.11 -m pip install -r requirements.txt -q
+py -3.11 -m pip install pyinstaller -q
 
 echo [2/3] Building with PyInstaller...
-pyinstaller PhotoStudioHub.spec --noconfirm --clean
+py -3.11 -m PyInstaller PhotoStudioHub.spec --noconfirm --clean
 if %ERRORLEVEL% neq 0 (
     echo PyInstaller failed. Check output above.
     pause
