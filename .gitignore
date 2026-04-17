@@ -1,0 +1,35 @@
+# Models (downloaded automatically on first run)
+models/
+*.pth
+*.pt
+*.onnx
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Output / working files
+output/
+*/selects/
+*/edited/
+*/retouched/
+*.xmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Env
+.env
+.env.local

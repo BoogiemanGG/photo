@@ -1,0 +1,9 @@
+{
+  "name": "Light & Airy",
+  "description": "Bright, airy, soft — popular for lifestyle and bridal photography",
+  "exposure": 1.2,
+  "contrast": 0.9,
+  "saturation": 0.85,
+  "temperature": 8,
+  "gamma": 1.2
+}

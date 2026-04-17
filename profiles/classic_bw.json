@@ -1,0 +1,9 @@
+{
+  "name": "Classic B&W",
+  "description": "Timeless black and white with strong contrast",
+  "exposure": 1.0,
+  "contrast": 1.3,
+  "saturation": 0.0,
+  "temperature": 0,
+  "gamma": 1.0
+}
