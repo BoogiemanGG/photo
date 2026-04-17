@@ -75,7 +75,7 @@ check("onnxruntime",  "onnxruntime (rembg backend)")
 check("basicsr",      "basicsr (Real-ESRGAN base)")
 check("realesrgan",   "Real-ESRGAN (upscaling)", optional=True)
 check("colour",       "colour-science (LUT grading)")
-check("pylette",      "Pylette (palette extraction)")
+check("Pylette",      "Pylette (palette extraction)")
 
 print()
 print("── GUI ──")
