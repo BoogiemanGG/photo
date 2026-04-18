@@ -21,7 +21,7 @@ DEFAULTS = {
     "thresholds.sharpness_min": 27,
     "thresholds.noise_max": 45,
     "thresholds.exposure_low": 23,
-    "thresholds.exposure_high": 88,
+    "thresholds.exposure_high": 76,
     "thresholds.duplicate_threshold": 33,
     "thresholds.motion_blur_threshold": 10,
 }

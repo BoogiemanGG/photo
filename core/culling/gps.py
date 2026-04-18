@@ -1,5 +1,4 @@
 import exifread
-from pathlib import Path
 
 
 def _dms_to_decimal(values, ref: str) -> float | None:
