@@ -152,12 +152,12 @@ class SettingsView(ctk.CTkFrame):
 
         _write_settings(data)
 
-        self._app.set_lang(data["lang"])
         ctk.set_appearance_mode(data["theme"])
         self._app.theme = data["theme"]
         config.OUTPUT_FORMAT = data["output_format"]
         config.OUTPUT_QUALITY = data["output_quality"]
         config.XMP_EXPORT = data["xmp_export"]
+        self._app.set_lang(data["lang"])
 
     def _reset(self):
         self._lang_var.set(_DEFAULTS["lang"])
