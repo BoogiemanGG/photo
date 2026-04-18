@@ -79,28 +79,30 @@ class SettingsView(ctk.CTkFrame):
         thresh_card = card_frame(self)
         thresh_card.grid(row=1, column=0, sticky="ew", pady=(0, 12))
         thresh_card.grid_columnconfigure(1, weight=1)
+        thresh_card.grid_columnconfigure(2, minsize=56)
 
         section_label(thresh_card, self._t("thresholds.title")).grid(
             row=0, column=0, columnspan=3, sticky="w", padx=16, pady=(12, 8)
         )
 
         sliders = [
-            ("thresholds.sharpness_min", SHARPNESS_MIN, 0, 300),
-            ("thresholds.noise_max", NOISE_MAX, 0, 100),
-            ("thresholds.exposure_low", EXPOSURE_LOW, 0, 128),
-            ("thresholds.exposure_high", EXPOSURE_HIGH, 128, 255),
-            ("thresholds.duplicate_threshold", DUPLICATE_THRESHOLD, 0, 30),
-            ("thresholds.motion_blur_threshold", 5, 0, 50),
+            ("thresholds.sharpness_min", 27),
+            ("thresholds.noise_max", 45),
+            ("thresholds.exposure_low", 23),
+            ("thresholds.exposure_high", 88),
+            ("thresholds.duplicate_threshold", 33),
+            ("thresholds.motion_blur_threshold", 10),
         ]
         self._threshold_vars = {}
-        for i, (key, default, lo, hi) in enumerate(sliders, 1):
-            var = ctk.DoubleVar(value=default)
+        for i, (key, default) in enumerate(sliders, 1):
+            var = ctk.IntVar(value=default)
             self._threshold_vars[key] = var
             ctk.CTkLabel(thresh_card, text=self._t(key),
                          font=ctk.CTkFont(size=12)).grid(
                 row=i, column=0, sticky="w", padx=16, pady=2
             )
-            ctk.CTkSlider(thresh_card, from_=lo, to=hi, variable=var).grid(
+            ctk.CTkSlider(thresh_card, from_=0, to=100,
+                          number_of_steps=100, variable=var).grid(
                 row=i, column=1, sticky="ew", padx=12, pady=2
             )
             val_lbl = ctk.CTkLabel(thresh_card, textvariable=var,
