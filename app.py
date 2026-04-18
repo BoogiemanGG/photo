@@ -195,9 +195,21 @@ class PhotoStudioHub(ctk.CTk):
         ctk.CTkLabel(frame, text=self.t("about.credits"),
                      font=ctk.CTkFont(size=11), text_color=MUTED).grid(row=3, column=0, pady=16)
         fp = self.license_manager.fingerprint()
-        ctk.CTkLabel(frame, text=f"Machine ID: {fp}",
+        id_row = ctk.CTkFrame(frame, fg_color="transparent")
+        id_row.grid(row=4, column=0)
+        ctk.CTkLabel(id_row, text=f"Machine ID: {fp}",
                      font=ctk.CTkFont(family="Consolas", size=11),
-                     text_color=MUTED).grid(row=4, column=0)
+                     text_color=MUTED).pack(side="left", padx=(0, 8))
+
+        def _copy_id():
+            self.clipboard_clear()
+            self.clipboard_append(fp)
+            copy_btn.configure(text="Copied!")
+            self.after(1500, lambda: copy_btn.configure(text="Copy"))
+
+        copy_btn = ctk.CTkButton(id_row, text="Copy", width=60, height=24,
+                                 font=ctk.CTkFont(size=11), command=_copy_id)
+        copy_btn.pack(side="left")
         return frame
 
     def _open_activate(self):
@@ -214,6 +226,18 @@ class PhotoStudioHub(ctk.CTk):
     def set_lang(self, lang: str):
         set_lang(lang)
         self.lang = lang
+        self._rebuild_ui()
+
+    def _rebuild_ui(self):
+        active = self._active_view
+        self._sidebar.destroy()
+        for v in self._views.values():
+            v.destroy()
+        self._views = {}
+        self._active_view = None
+        self._sidebar = self._build_sidebar()
+        self._sidebar.grid(row=1, column=0, sticky="nsew")
+        self._show_view(active or "pipeline")
 
     def refresh_trial_banner(self):
         self._banner.refresh()
