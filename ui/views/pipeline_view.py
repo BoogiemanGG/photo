@@ -174,7 +174,7 @@ class PipelineView(ctk.CTkFrame):
             if mode in ("cull", "full"):
                 from core.culling.pipeline import run_culling_pipeline
                 self._log_ui(f"[CULL] Starting culling on {total} photos…")
-                results = run_culling_pipeline(input_path)
+                results = run_culling_pipeline([str(p) for p in photos])
                 selects = [r for r in results if r.get("passed")]
                 rejects = [r for r in results if not r.get("passed")]
                 for i, r in enumerate(results, 1):
