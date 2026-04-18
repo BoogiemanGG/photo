@@ -16,7 +16,11 @@ def _dms_to_decimal(values, ref: str) -> float | None:
 
 
 def get_gps(image_path: str) -> dict:
-    with open(image_path, "rb") as f:
+    try:
+        f_handle = open(image_path, "rb")
+    except OSError:
+        return {"lat": None, "lon": None, "has_gps": False}
+    with f_handle as f:
         tags = exifread.process_file(f, stop_tag="GPS GPSLongitude", details=False)
     lat = _dms_to_decimal(
         tags.get("GPS GPSLatitude", type("", (), {"values": None})()).values,

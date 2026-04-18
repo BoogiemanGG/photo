@@ -80,7 +80,6 @@
     "output_format": "Format izlaza",
     "output_quality": "JPEG kvalitet",
     "workers": "Niti za obradu",
-    "xmp_export": "Izvoz XMP sidecar datoteka",
     "save": "Sačuvaj",
     "reset": "Vrati zadane postavke"
   },

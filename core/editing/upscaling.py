@@ -3,6 +3,8 @@ import numpy as np
 from pathlib import Path
 from config import UPSCALE_FACTOR
 
+from core.editing.io_utils import imwrite
+
 
 def upscale(image_path: str, output_path: str, scale: int = UPSCALE_FACTOR) -> str:
     try:
@@ -21,7 +23,7 @@ def upscale(image_path: str, output_path: str, scale: int = UPSCALE_FACTOR) -> s
         )
         img = cv2.imread(image_path, cv2.IMREAD_COLOR)
         output, _ = upsampler.enhance(img, outscale=scale)
-        cv2.imwrite(output_path, output)
+        imwrite(output_path, output)
         return output_path
     except Exception:
         # Fallback: bicubic upscaling
@@ -30,5 +32,5 @@ def upscale(image_path: str, output_path: str, scale: int = UPSCALE_FACTOR) -> s
             return image_path
         h, w = img.shape[:2]
         resized = cv2.resize(img, (w * scale, h * scale), interpolation=cv2.INTER_CUBIC)
-        cv2.imwrite(output_path, resized)
+        imwrite(output_path, resized)
         return output_path

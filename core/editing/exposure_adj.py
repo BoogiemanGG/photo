@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+from core.editing.io_utils import imwrite
+
 
 def adjust_exposure(image_path: str, output_path: str, target_mean: float = 128.0) -> str:
     img = cv2.imread(image_path)
@@ -12,7 +14,7 @@ def adjust_exposure(image_path: str, output_path: str, target_mean: float = 128.
         return image_path
     scale = target_mean / current_mean
     adjusted = np.clip(img.astype(np.float32) * scale, 0, 255).astype(np.uint8)
-    cv2.imwrite(output_path, adjusted)
+    imwrite(output_path, adjusted)
     return output_path
 
 
@@ -30,5 +32,5 @@ def shadows_highlights(image_path: str, output_path: str,
     l_channel[highlight_mask] = np.clip(l_channel[highlight_mask] * highlight_reduce, 0, 255)
     lab[:, :, 0] = l_channel
     result = cv2.cvtColor(lab.astype(np.uint8), cv2.COLOR_LAB2BGR)
-    cv2.imwrite(output_path, result)
+    imwrite(output_path, result)
     return output_path

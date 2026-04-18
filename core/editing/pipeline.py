@@ -12,7 +12,7 @@ from core.editing.background import remove_background
 from core.editing.upscaling import upscale
 from core.editing.raw_convert import convert_raw, RAW_EXTENSIONS
 from core.editing.exif_ops import copy_exif, batch_rename_with_exif
-from config import OUTPUT_FORMAT, OUTPUT_QUALITY
+import config
 
 
 def edit_single(
@@ -90,7 +90,9 @@ def run_editing_pipeline(
     print(f"[PhotoStudioHub] Editing {len(image_paths)} photos...")
     for path in tqdm(image_paths, desc="Editing"):
         p = Path(path)
-        out = str(out_dir / f"{p.stem}_edited.jpg")
+        _ext = {"JPEG": ".jpg", "PNG": ".png", "TIFF": ".tiff"}.get(
+            config.OUTPUT_FORMAT, ".jpg")
+        out = str(out_dir / f"{p.stem}_edited{_ext}")
         try:
             result = edit_single(path, out, profile=profile, **options)
             results.append(result)

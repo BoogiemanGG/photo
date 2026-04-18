@@ -5,6 +5,8 @@ from rembg import remove
 from PIL import Image
 from config import BOKEH_BLUR_RADIUS
 
+from core.editing.io_utils import imwrite
+
 
 def portrait_bokeh(image_path: str, output_path: str,
                    blur_radius: int = BOKEH_BLUR_RADIUS) -> str:
@@ -24,5 +26,5 @@ def portrait_bokeh(image_path: str, output_path: str,
     mask_3ch = np.stack([mask_f] * 3, axis=2)
     result = (img.astype(np.float32) * mask_3ch +
               blurred_bg.astype(np.float32) * (1 - mask_3ch))
-    cv2.imwrite(output_path, result.clip(0, 255).astype(np.uint8))
+    imwrite(output_path, result.clip(0, 255).astype(np.uint8))
     return output_path

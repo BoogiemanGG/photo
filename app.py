@@ -22,6 +22,7 @@ from i18n import t as _t, set_lang, get_lang
 from license.manager import LicenseManager
 from ui.theme import apply_theme, ACCENT, MUTED
 from ui.widgets import TrialBanner
+import user_settings
 
 
 class PhotoStudioHub(ctk.CTk):
@@ -33,9 +34,11 @@ class PhotoStudioHub(ctk.CTk):
     def __init__(self):
         super().__init__()
 
+        self._settings = user_settings.apply()
+
         self.license_manager = LicenseManager()
         self.lang = get_lang()
-        self.theme = "dark"
+        self.theme = self._settings.get("theme", "dark")
 
         apply_theme(self.theme)
         self.title(self.APP_TITLE)

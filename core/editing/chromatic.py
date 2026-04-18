@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+from core.editing.io_utils import imwrite
+
 
 def correct_chromatic_aberration(image_path: str, output_path: str) -> str:
     try:
@@ -29,5 +31,5 @@ def _channel_shift_correction(img: np.ndarray, output_path: str) -> str:
     r_corrected = scale_channel(r, 0.999)
     b_corrected = scale_channel(b, 1.001)
     result = cv2.merge([b_corrected, g, r_corrected])
-    cv2.imwrite(output_path, result)
+    imwrite(output_path, result)
     return output_path

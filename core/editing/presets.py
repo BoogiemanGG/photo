@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 from pathlib import Path
 from config import PROFILES_DIR
+from core.editing.io_utils import imwrite
 
 
 def load_profile(profile_name: str) -> dict:
@@ -50,7 +51,7 @@ def apply_profile(image_path: str, output_path: str, profile_name: str) -> str:
                            for i in range(256)], dtype=np.uint8)
         img = cv2.LUT(img, table)
 
-    cv2.imwrite(output_path, img)
+    imwrite(output_path, img)
     return output_path
 
 

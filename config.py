@@ -39,7 +39,6 @@ GPU_ENABLED = True            # Auto-detected at runtime
 BATCH_WORKERS = 1             # Single-threaded — DeepFace/TF not thread-safe on CPU
 OUTPUT_FORMAT = "JPEG"        # JPEG | TIFF | PNG
 OUTPUT_QUALITY = 95           # JPEG quality 1-100
-XMP_EXPORT = True             # Write XMP sidecar files
 
 # --- Pricing tiers (for UI/reporting) ---
 TIER_PRO_MONTHLY_PHOTOS = 3000

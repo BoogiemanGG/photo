@@ -1,46 +1,16 @@
 """Settings view — language, theme, thresholds, output format."""
 
-import json
-from pathlib import Path
-
 import customtkinter as ctk
+
+import user_settings
 from ui.theme import accent_button, ghost_button, card_frame, section_label, MUTED
-from config import OUTPUT_FORMAT, OUTPUT_QUALITY
-
-_SETTINGS_FILE = Path.home() / ".photostudiohub" / "user_settings.json"
-
-_DEFAULTS = {
-    "lang": "en",
-    "theme": "dark",
-    "output_format": OUTPUT_FORMAT,
-    "output_quality": OUTPUT_QUALITY,
-    "xmp_export": True,
-    "thresholds.sharpness_min": 27,
-    "thresholds.noise_max": 45,
-    "thresholds.exposure_low": 23,
-    "thresholds.exposure_high": 88,
-    "thresholds.duplicate_threshold": 33,
-    "thresholds.motion_blur_threshold": 10,
-}
-
-
-def _load_settings() -> dict:
-    try:
-        return json.loads(_SETTINGS_FILE.read_text())
-    except Exception:
-        return {}
-
-
-def _write_settings(data: dict):
-    _SETTINGS_FILE.parent.mkdir(parents=True, exist_ok=True)
-    _SETTINGS_FILE.write_text(json.dumps(data, indent=2))
 
 
 class SettingsView(ctk.CTkFrame):
     def __init__(self, parent, app, **kw):
         super().__init__(parent, fg_color="transparent", **kw)
         self._app = app
-        self._saved = {**_DEFAULTS, **_load_settings()}
+        self._saved = user_settings.load()
         self._build()
 
     def _build(self):
@@ -84,19 +54,13 @@ class SettingsView(ctk.CTkFrame):
         ).grid(row=3, column=1, sticky="w", padx=16, pady=4)
 
         ctk.CTkLabel(appear_card, text=self._t("settings.output_quality"),
-                     font=ctk.CTkFont(size=12)).grid(row=4, column=0, sticky="w", padx=16, pady=4)
+                     font=ctk.CTkFont(size=12)).grid(row=4, column=0, sticky="w", padx=16, pady=(4, 14))
         self._quality_var = ctk.IntVar(value=s["output_quality"])
         ctk.CTkSlider(appear_card, from_=60, to=100, variable=self._quality_var,
-                      number_of_steps=40).grid(row=4, column=1, sticky="ew", padx=16, pady=4)
+                      number_of_steps=40).grid(row=4, column=1, sticky="ew", padx=16, pady=(4, 14))
         ctk.CTkLabel(appear_card, textvariable=self._quality_var,
                      font=ctk.CTkFont(size=11), text_color=MUTED, width=40).grid(
-            row=4, column=2, padx=(0, 16), pady=4)
-
-        ctk.CTkLabel(appear_card, text=self._t("settings.xmp_export"),
-                     font=ctk.CTkFont(size=12)).grid(row=5, column=0, sticky="w", padx=16, pady=(4, 14))
-        self._xmp_var = ctk.BooleanVar(value=s["xmp_export"])
-        ctk.CTkSwitch(appear_card, text="", variable=self._xmp_var).grid(
-            row=5, column=1, sticky="w", padx=16, pady=(4, 14))
+            row=4, column=2, padx=(0, 16), pady=(4, 14))
 
         # --- Culling thresholds ---
         thresh_card = card_frame(self)
@@ -108,14 +72,7 @@ class SettingsView(ctk.CTkFrame):
             row=0, column=0, columnspan=3, sticky="w", padx=16, pady=(12, 8)
         )
 
-        threshold_keys = [
-            "thresholds.sharpness_min",
-            "thresholds.noise_max",
-            "thresholds.exposure_low",
-            "thresholds.exposure_high",
-            "thresholds.duplicate_threshold",
-            "thresholds.motion_blur_threshold",
-        ]
+        threshold_keys = list(user_settings.THRESHOLD_RANGES.keys())
         self._threshold_vars = {}
         for i, key in enumerate(threshold_keys, 1):
             var = ctk.IntVar(value=s[key])
@@ -139,34 +96,31 @@ class SettingsView(ctk.CTkFrame):
                      command=self._reset, width=120).pack(side="left")
 
     def _save(self):
-        import config
         data = {
             "lang": self._lang_var.get(),
             "theme": self._theme_var.get(),
             "output_format": self._fmt_var.get(),
             "output_quality": self._quality_var.get(),
-            "xmp_export": self._xmp_var.get(),
         }
         for key, var in self._threshold_vars.items():
             data[key] = var.get()
 
-        _write_settings(data)
+        user_settings.save(data)
+        user_settings.apply(data)
 
         ctk.set_appearance_mode(data["theme"])
         self._app.theme = data["theme"]
-        config.OUTPUT_FORMAT = data["output_format"]
-        config.OUTPUT_QUALITY = data["output_quality"]
-        config.XMP_EXPORT = data["xmp_export"]
+        # set_lang last — it triggers a UI rebuild that destroys this view.
         self._app.set_lang(data["lang"])
 
     def _reset(self):
-        self._lang_var.set(_DEFAULTS["lang"])
-        self._theme_var.set(_DEFAULTS["theme"])
-        self._fmt_var.set(_DEFAULTS["output_format"])
-        self._quality_var.set(_DEFAULTS["output_quality"])
-        self._xmp_var.set(_DEFAULTS["xmp_export"])
+        d = user_settings.DEFAULTS
+        self._lang_var.set(d["lang"])
+        self._theme_var.set(d["theme"])
+        self._fmt_var.set(d["output_format"])
+        self._quality_var.set(d["output_quality"])
         for key, var in self._threshold_vars.items():
-            var.set(_DEFAULTS[key])
+            var.set(d[key])
 
     def _t(self, key: str, **kw) -> str:
         return self._app.t(key, **kw)

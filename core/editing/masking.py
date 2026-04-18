@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from rembg import remove
 
+from core.editing.io_utils import imwrite
+
 
 def get_subject_mask(image_path: str) -> np.ndarray | None:
     with open(image_path, "rb") as f:
@@ -30,5 +32,5 @@ def apply_subject_mask(image_path: str, output_path: str,
     mask_3ch = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR).astype(np.float32) / 255.0
     result = (img.astype(np.float32) * mask_3ch +
               bg.astype(np.float32) * (1 - mask_3ch))
-    cv2.imwrite(output_path, result.clip(0, 255).astype(np.uint8))
+    imwrite(output_path, result.clip(0, 255).astype(np.uint8))
     return output_path

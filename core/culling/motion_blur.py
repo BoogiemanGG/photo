@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from config import MOTION_BLUR_THRESHOLD
+import config
 
 
 def detect_motion_blur(image_path: str) -> dict:
@@ -17,7 +17,7 @@ def detect_motion_blur(image_path: str) -> dict:
     Y, X = np.ogrid[:h, :w]
     mask[(Y - cy) ** 2 + (X - cx) ** 2 <= radius ** 2] = True
     high_freq = float(np.mean(magnitude[~mask]))
-    has_blur = high_freq < MOTION_BLUR_THRESHOLD
+    has_blur = high_freq < config.MOTION_BLUR_THRESHOLD
     return {
         "high_freq_energy": round(high_freq, 3),
         "has_motion_blur": has_blur,

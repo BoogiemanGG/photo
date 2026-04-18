@@ -22,6 +22,14 @@ class TrialBanner(ctk.CTkFrame):
         )
         self._btn.pack(side="right", padx=8, pady=4)
         self.refresh()
+        self._schedule_tick()
+
+    def _schedule_tick(self):
+        self.after(60 * 60 * 1000, self._tick)
+
+    def _tick(self):
+        self.refresh()
+        self._schedule_tick()
 
     def _on_activate(self):
         if self._activate_cb:

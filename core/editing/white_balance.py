@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from config import WB_ALGORITHM
+from core.editing.io_utils import imwrite
 
 
 def gray_world(img: np.ndarray) -> np.ndarray:
@@ -31,5 +32,5 @@ def auto_white_balance(image_path: str, output_path: str,
     if img is None:
         return image_path
     result = gray_world(img) if algorithm == "gray_world" else white_patch(img)
-    cv2.imwrite(output_path, result)
+    imwrite(output_path, result)
     return output_path

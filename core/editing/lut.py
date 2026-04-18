@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from pathlib import Path
 
+from core.editing.io_utils import imwrite
+
 
 def apply_lut(image_path: str, output_path: str, lut_path: str) -> str:
     img = cv2.imread(image_path)
@@ -12,7 +14,7 @@ def apply_lut(image_path: str, output_path: str, lut_path: str) -> str:
         return image_path
     b, g, r = cv2.split(img)
     result = cv2.LUT(img, lut_data) if lut_data.ndim == 1 else _apply_3d_lut(img, lut_data)
-    cv2.imwrite(output_path, result)
+    imwrite(output_path, result)
     return output_path
 
 

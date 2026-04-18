@@ -1,12 +1,12 @@
 import cv2
 import numpy as np
-from config import EXPOSURE_LOW, EXPOSURE_HIGH
+import config
 
 
 def analyze_exposure(image_path: str) -> dict:
     img = cv2.imread(image_path)
     if img is None:
-        return {"mean": 0, "passed": False, "issue": "Cannot read image"}
+        return {"mean_brightness": 0, "passed": False, "issue": "Cannot read image"}
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     mean = float(np.mean(gray))
     hist = cv2.calcHist([gray], [0], None, [256], [0, 256]).flatten()
@@ -14,9 +14,9 @@ def analyze_exposure(image_path: str) -> dict:
     clipped_low = float(np.sum(hist[:5]) / total)
     clipped_high = float(np.sum(hist[250:]) / total)
     issue = None
-    if mean < EXPOSURE_LOW:
+    if mean < config.EXPOSURE_LOW:
         issue = "underexposed"
-    elif mean > EXPOSURE_HIGH:
+    elif mean > config.EXPOSURE_HIGH:
         issue = "overexposed"
     elif clipped_low > 0.02:
         issue = "clipped_shadows"

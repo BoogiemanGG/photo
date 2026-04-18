@@ -1,5 +1,4 @@
 from concurrent.futures import ThreadPoolExecutor
-from pathlib import Path
 from tqdm import tqdm
 
 from core.culling.sharpness import score_sharpness, score_subject_vs_background

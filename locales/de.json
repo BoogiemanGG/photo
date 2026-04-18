@@ -80,7 +80,6 @@
     "output_format": "Ausgabeformat",
     "output_quality": "JPEG-Qualität",
     "workers": "Verarbeitungs-Threads",
-    "xmp_export": "XMP-Sidecars exportieren",
     "save": "Speichern",
     "reset": "Auf Standardwerte zurücksetzen"
   },

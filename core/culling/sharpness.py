@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from config import SHARPNESS_MIN
+import config
 
 
 def score_sharpness(image_path: str) -> dict:
@@ -8,7 +8,7 @@ def score_sharpness(image_path: str) -> dict:
     if img is None:
         return {"score": 0.0, "passed": False, "error": "Cannot read image"}
     score = cv2.Laplacian(img, cv2.CV_64F).var()
-    return {"score": round(score, 2), "passed": score >= SHARPNESS_MIN}
+    return {"score": round(score, 2), "passed": score >= config.SHARPNESS_MIN}
 
 
 def score_subject_vs_background(image_path: str) -> dict:

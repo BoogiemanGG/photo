@@ -1,6 +1,6 @@
 from PIL import Image
 import imagehash
-from config import DUPLICATE_THRESHOLD
+import config
 
 
 def compute_hash(image_path: str) -> imagehash.ImageHash:
@@ -26,7 +26,7 @@ def group_duplicates(image_paths: list[str]) -> list[list[str]]:
         for j, (path_b, hash_b) in enumerate(hashes):
             if j in used or j == i or hash_b is None:
                 continue
-            if hash_a - hash_b <= DUPLICATE_THRESHOLD:
+            if hash_a - hash_b <= config.DUPLICATE_THRESHOLD:
                 group.append(path_b)
                 used.add(j)
         if len(group) > 1:

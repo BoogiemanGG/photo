@@ -170,6 +170,8 @@ class PipelineView(ctk.CTkFrame):
         try:
             total = len(photos)
             t0 = time.time()
+            selects: list = []
+            rejects: list = []
 
             if mode in ("cull", "full"):
                 from core.culling.pipeline import run_culling_pipeline
@@ -194,7 +196,10 @@ class PipelineView(ctk.CTkFrame):
                     if not self._running:
                         break
                     src = r["path"] if isinstance(r, dict) else photos[r]
-                    out = Path(output_path) / Path(src).name
+                    import config as _cfg
+                    _ext = {"JPEG": ".jpg", "PNG": ".png", "TIFF": ".tiff"}.get(
+                        _cfg.OUTPUT_FORMAT, ".jpg")
+                    out = Path(output_path) / (Path(src).stem + _ext)
                     try:
                         edit_single(str(src), str(out), profile=profile)
                     except Exception as e:

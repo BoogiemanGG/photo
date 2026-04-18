@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from config import NOISE_MAX
+import config
 
 
 def assess_noise(image_path: str) -> dict:
@@ -13,4 +13,4 @@ def assess_noise(image_path: str) -> dict:
     blurred = cv2.GaussianBlur(region, (5, 5), 0)
     diff = cv2.absdiff(region, blurred).astype(np.float32)
     score = float(np.mean(diff))
-    return {"score": round(score, 2), "passed": score <= NOISE_MAX}
+    return {"score": round(score, 2), "passed": score <= config.NOISE_MAX}
