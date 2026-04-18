@@ -1,6 +1,7 @@
 {
   "name": "Moody Dark",
-  "description": "Deep shadows, rich contrast — editorial and dramatic portraits",
+  "style": "Deep shadows, rich contrast, cool tones",
+  "good_for": "Editorial, dramatic portraits, fine art",
   "exposure": 0.88,
   "contrast": 1.25,
   "saturation": 0.9,

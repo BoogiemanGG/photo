@@ -1,6 +1,7 @@
 {
   "name": "Classic B&W",
-  "description": "Timeless black and white with strong contrast",
+  "style": "Timeless black and white with strong contrast",
+  "good_for": "Portraits, street, fine art, documentary",
   "exposure": 1.0,
   "contrast": 1.3,
   "saturation": 0.0,

@@ -1,0 +1,10 @@
+{
+  "name": "Faded Matte",
+  "style": "Lifted blacks, low contrast, muted colours",
+  "good_for": "Instagram, editorial, fashion",
+  "exposure": 1.05,
+  "contrast": 0.78,
+  "saturation": 0.75,
+  "temperature": 5,
+  "gamma": 1.2
+}

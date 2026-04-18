@@ -14,12 +14,20 @@ from ui.theme import accent_button, ghost_button, card_frame, section_label, ACC
 from ui.widgets import FolderRow, ProgressCard, StatsRow, LogBox
 
 
-PROFILES = ["natural_warm", "light_airy", "moody_dark", "classic_bw"]
+PROFILES = [
+    "natural_warm", "light_airy", "moody_dark", "classic_bw",
+    "faded_matte", "golden_hour", "cool_editorial", "vibrant", "film_vintage",
+]
 PROFILE_LABELS = {
-    "natural_warm": "Natural Warm",
-    "light_airy": "Light & Airy",
-    "moody_dark": "Moody Dark",
-    "classic_bw": "Classic B&W",
+    "natural_warm":   "Natural Warm",
+    "light_airy":     "Light & Airy",
+    "moody_dark":     "Moody Dark",
+    "classic_bw":     "Classic B&W",
+    "faded_matte":    "Faded Matte",
+    "golden_hour":    "Golden Hour",
+    "cool_editorial": "Cool Editorial",
+    "vibrant":        "Vibrant",
+    "film_vintage":   "Film Vintage",
 }
 
 

@@ -1,6 +1,7 @@
 {
   "name": "Natural Warm",
-  "description": "Warm, natural tones — ideal for weddings and portraits",
+  "style": "Warm, natural tones with gentle contrast",
+  "good_for": "Weddings, portraits, family sessions",
   "exposure": 1.05,
   "contrast": 1.1,
   "saturation": 1.15,

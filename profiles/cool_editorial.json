@@ -1,0 +1,10 @@
+{
+  "name": "Cool Editorial",
+  "style": "Blue-tinted, clean, high contrast",
+  "good_for": "Fashion, commercial, magazine work",
+  "exposure": 1.0,
+  "contrast": 1.15,
+  "saturation": 0.9,
+  "temperature": -15,
+  "gamma": 1.0
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Golden Hour",
+  "style": "Warm orange glow, soft contrast",
+  "good_for": "Outdoor shoots, sunset sessions, couples",
+  "exposure": 1.1,
+  "contrast": 1.05,
+  "saturation": 1.1,
+  "temperature": 20,
+  "gamma": 1.05
+}
