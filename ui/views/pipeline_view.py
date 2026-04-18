@@ -68,10 +68,10 @@ class PipelineView(ctk.CTkFrame):
 
         ctk.CTkLabel(opts_frame, text=self._t("edit.profile"),
                      font=ctk.CTkFont(size=12)).grid(row=0, column=0, padx=(0, 8))
-        self._profile_var = ctk.StringVar(value="natural_warm")
+        self._profile_var = ctk.StringVar(value=PROFILE_LABELS["natural_warm"])
         ctk.CTkOptionMenu(
             opts_frame,
-            values=PROFILES,
+            values=list(PROFILE_LABELS.values()),
             variable=self._profile_var,
             width=180,
             height=32,
@@ -149,7 +149,8 @@ class PipelineView(ctk.CTkFrame):
         self._log.append(f"[INFO] {self._t('pipeline.photos_found', n=len(photos))}")
 
         mode = self._mode_var.get()
-        profile = self._profile_var.get()
+        _label_to_key = {v: k for k, v in PROFILE_LABELS.items()}
+        profile = _label_to_key.get(self._profile_var.get(), "natural_warm")
 
         self._thread = threading.Thread(
             target=self._run_pipeline,
