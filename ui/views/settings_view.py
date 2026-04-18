@@ -30,10 +30,13 @@ class SettingsView(ctk.CTkFrame):
         ctk.CTkLabel(appear_card, text=self._t("settings.language"),
                      font=ctk.CTkFont(size=12)).grid(row=1, column=0, sticky="w", padx=16, pady=4)
         from i18n import all_lang_options
-        lang_codes = [c for c, _ in all_lang_options()]
-        self._lang_var = ctk.StringVar(value=s["lang"])
+        lang_opts = all_lang_options()
+        self._lang_map = {name: code for code, name in lang_opts}
+        lang_names = [name for _, name in lang_opts]
+        current_name = next((n for c, n in lang_opts if c == s["lang"]), lang_names[0])
+        self._lang_var = ctk.StringVar(value=current_name)
         ctk.CTkOptionMenu(
-            appear_card, values=lang_codes, variable=self._lang_var,
+            appear_card, values=lang_names, variable=self._lang_var,
             width=160, height=30,
         ).grid(row=1, column=1, sticky="w", padx=16, pady=4)
 
@@ -97,7 +100,7 @@ class SettingsView(ctk.CTkFrame):
 
     def _save(self):
         data = {
-            "lang": self._lang_var.get(),
+            "lang": self._lang_map.get(self._lang_var.get(), "en"),
             "theme": self._theme_var.get(),
             "output_format": self._fmt_var.get(),
             "output_quality": self._quality_var.get(),
@@ -115,7 +118,8 @@ class SettingsView(ctk.CTkFrame):
 
     def _reset(self):
         d = user_settings.DEFAULTS
-        self._lang_var.set(d["lang"])
+        default_name = next((n for n, c in self._lang_map.items() if c == d["lang"]), d["lang"])
+        self._lang_var.set(default_name)
         self._theme_var.set(d["theme"])
         self._fmt_var.set(d["output_format"])
         self._quality_var.set(d["output_quality"])
