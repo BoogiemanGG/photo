@@ -64,6 +64,9 @@ python-xmp-toolkit>=2.0.1
 tqdm>=4.65.0
 click>=8.1.0
 
+# Drag & drop support for folder selection (optional but recommended)
+tkinterdnd2>=0.4.0
+
 # Configuration
 python-dotenv>=1.0.0
 pyyaml>=6.0.0

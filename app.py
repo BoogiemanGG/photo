@@ -18,6 +18,12 @@ if sys.version_info < (3, 11, 3):
 
 import customtkinter as ctk
 
+try:
+    from tkinterdnd2 import TkinterDnD as _TkDnD
+    _HAS_DND = True
+except Exception:
+    _HAS_DND = False
+
 from i18n import t as _t, set_lang, get_lang
 from license.manager import LicenseManager
 from ui.theme import apply_theme, ACCENT, MUTED
@@ -33,6 +39,12 @@ class PhotoStudioHub(ctk.CTk):
 
     def __init__(self):
         super().__init__()
+
+        if _HAS_DND:
+            try:
+                self.TkdndVersion = _TkDnD._require(self)
+            except Exception:
+                pass
 
         self._settings = user_settings.apply()
 

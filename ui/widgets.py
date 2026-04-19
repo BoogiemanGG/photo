@@ -1,7 +1,16 @@
 """Reusable widgets used across multiple views."""
 
+from pathlib import Path
+
 import customtkinter as ctk
 from .theme import ACCENT, MUTED, SUCCESS, DANGER, WARNING, FONT_MONO
+
+try:
+    from tkinterdnd2 import DND_FILES
+    _HAS_DND = True
+except Exception:
+    DND_FILES = None
+    _HAS_DND = False
 
 
 class TrialBanner(ctk.CTkFrame):
@@ -62,7 +71,8 @@ class TrialBanner(ctk.CTkFrame):
 
 
 class FolderRow(ctk.CTkFrame):
-    """Label + path entry + Browse button."""
+    """Label + path entry + Browse button. Supports drag & drop when
+    tkinterdnd2 is installed and the root Tk has the DnD extension loaded."""
 
     def __init__(self, parent, label: str, browse_cb, **kw):
         super().__init__(parent, fg_color="transparent", **kw)
@@ -70,13 +80,40 @@ class FolderRow(ctk.CTkFrame):
                      font=ctk.CTkFont(size=12)).pack(side="left")
         self._var = ctk.StringVar()
         self._entry = ctk.CTkEntry(self, textvariable=self._var,
-                                   height=32, font=ctk.CTkFont(size=12))
+                                   height=32, font=ctk.CTkFont(size=12),
+                                   placeholder_text="Paste path or drop a folder here")
         self._entry.pack(side="left", fill="x", expand=True, padx=(4, 6))
         ctk.CTkButton(
             self, text="Browse", width=80, height=32,
             font=ctk.CTkFont(size=12),
             command=lambda: self._on_browse(browse_cb),
         ).pack(side="left")
+        self._register_dnd()
+
+    def _register_dnd(self):
+        if not _HAS_DND:
+            return
+        for target in (self._entry, self):
+            try:
+                target.drop_target_register(DND_FILES)
+                target.dnd_bind("<<Drop>>", self._on_drop)
+            except Exception:
+                pass
+
+    def _on_drop(self, event):
+        raw = (getattr(event, "data", "") or "").strip()
+        if not raw:
+            return
+        # tkdnd wraps paths with spaces in {braces}; strip and take first.
+        if raw.startswith("{"):
+            end = raw.find("}")
+            raw = raw[1:end] if end > 0 else raw[1:]
+        else:
+            raw = raw.split(" ", 1)[0]
+        p = Path(raw)
+        if p.exists() and p.is_file():
+            p = p.parent
+        self._var.set(str(p))
 
     def _on_browse(self, cb):
         path = cb()

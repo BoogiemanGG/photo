@@ -53,11 +53,13 @@ hidden_imports = [
     # cryptography / rsa
     "cryptography",
     "rsa",
-    # customtkinter
+    # customtkinter + drag & drop
     "customtkinter",
+    "tkinterdnd2",
     # project modules
     "i18n",
     "config",
+    "user_settings",
     "license",
     "license.fingerprint",
     "license.trial",
@@ -65,10 +67,12 @@ hidden_imports = [
     "license.manager",
     "core.culling.pipeline",
     "core.editing.pipeline",
+    "core.editing.io_utils",
     "core.retouching.pipeline",
     "ui.theme",
     "ui.widgets",
     "ui.views.pipeline_view",
+    "ui.views.cull_review_view",
     "ui.views.settings_view",
     "ui.views.activate_view",
 ]
