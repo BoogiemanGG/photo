@@ -17,6 +17,9 @@
 import sys
 from pathlib import Path
 
+import customtkinter as _ctk
+CTK_PATH = str(Path(_ctk.__file__).parent)
+
 ROOT = Path(SPECPATH)
 
 block_cipher = None
@@ -85,8 +88,8 @@ datas = [
     (str(ROOT / "profiles"),        "profiles"),
     # RSA public key (NEVER include private.pem here)
     (str(ROOT / "license" / "public.pem"), "license"),
-    # CustomTkinter themes / assets
-    ("customtkinter", "customtkinter"),
+    # CustomTkinter themes / assets (resolved from site-packages at build time)
+    (CTK_PATH, "customtkinter"),
 ]
 
 # ── Binaries (OpenCV Haar cascades ship inside cv2 package) ──────
