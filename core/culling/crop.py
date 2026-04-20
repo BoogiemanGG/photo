@@ -20,7 +20,8 @@ def auto_crop_rule_of_thirds(image_path: str, output_path: str,
         return image_path
     h, w = img.shape[:2]
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = _get_cascade().detectMultiScale(gray, 1.1, 5, minSize=(30, 30))
+    c = _get_cascade()
+    faces = c.detectMultiScale(gray, 1.1, 5, minSize=(30, 30)) if not c.empty() else []
     if len(faces) > 0:
         x, y, fw, fh = faces[0]
         face_cx, face_cy = x + fw // 2, y + fh // 2
@@ -43,7 +44,8 @@ def portrait_crop_by_head_size(image_path: str, output_path: str,
         return image_path
     h, w = img.shape[:2]
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = _get_cascade().detectMultiScale(gray, 1.1, 5, minSize=(30, 30))
+    c = _get_cascade()
+    faces = c.detectMultiScale(gray, 1.1, 5, minSize=(30, 30)) if not c.empty() else []
     if not len(faces):
         return image_path
     x, y, fw, fh = faces[0]

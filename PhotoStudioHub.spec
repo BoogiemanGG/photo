@@ -20,6 +20,9 @@ from pathlib import Path
 import customtkinter as _ctk
 CTK_PATH = str(Path(_ctk.__file__).parent)
 
+import cv2 as _cv2
+CV2_DATA = str(Path(_cv2.__file__).parent / "data")
+
 ROOT = Path(SPECPATH)
 
 block_cipher = None
@@ -90,6 +93,8 @@ datas = [
     (str(ROOT / "license" / "public.pem"), "license"),
     # CustomTkinter themes / assets (resolved from site-packages at build time)
     (CTK_PATH, "customtkinter"),
+    # OpenCV Haar cascades — required for face / eye / head-pose detection
+    (CV2_DATA, "cv2/data"),
 ]
 
 # ── Binaries (OpenCV Haar cascades ship inside cv2 package) ──────

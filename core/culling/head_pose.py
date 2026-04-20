@@ -24,8 +24,12 @@ def estimate_head_pose(image_path: str) -> dict:
         return {"faces": [], "passed": False}
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     face_c, profile_c = _cascades()
-    frontal = face_c.detectMultiScale(gray, 1.1, 5, minSize=(30, 30))
-    profile = profile_c.detectMultiScale(gray, 1.1, 5, minSize=(30, 30))
+    if face_c.empty() and profile_c.empty():
+        return {"faces": [], "passed": True, "note": "cascade_missing"}
+    frontal = face_c.detectMultiScale(gray, 1.1, 5, minSize=(30, 30)) \
+        if not face_c.empty() else []
+    profile = profile_c.detectMultiScale(gray, 1.1, 5, minSize=(30, 30)) \
+        if not profile_c.empty() else []
     if len(frontal) == 0 and len(profile) == 0:
         return {"faces": [], "passed": True, "note": "no_face"}
     faces = []

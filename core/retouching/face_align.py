@@ -26,12 +26,15 @@ def align_face(image_path: str, output_path: str,
     h, w = img.shape[:2]
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     face_c, eye_c = _load()
+    if face_c.empty() or eye_c.empty():
+        return image_path
     faces = face_c.detectMultiScale(gray, 1.1, 5, minSize=(40, 40))
     if not len(faces):
         return image_path
     fx, fy, fw, fh = faces[0]
     roi_gray = gray[fy:fy + fh // 2, fx:fx + fw]
-    eyes = eye_c.detectMultiScale(roi_gray, 1.1, 5, minSize=(10, 10))
+    eyes = eye_c.detectMultiScale(roi_gray, 1.1, 5, minSize=(10, 10)) \
+        if not eye_c.empty() else []
     if len(eyes) < 2:
         return image_path
     # Sort eyes left to right

@@ -25,6 +25,8 @@ def _load():
 def get_face_regions(img: np.ndarray) -> list[dict]:
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     face_c, eye_c = _load()
+    if face_c.empty():
+        return []
     faces = face_c.detectMultiScale(gray, 1.1, 5, minSize=(40, 40))
     regions = []
     for fx, fy, fw, fh in faces:
@@ -39,7 +41,8 @@ def get_face_regions(img: np.ndarray) -> list[dict]:
 
         # Detect actual eye positions within face ROI
         roi_gray = gray[fy:fy + fh // 2, fx:fx + fw]
-        eyes = eye_c.detectMultiScale(roi_gray, 1.1, 5, minSize=(10, 10))
+        eyes = eye_c.detectMultiScale(roi_gray, 1.1, 5, minSize=(10, 10)) \
+            if not eye_c.empty() else []
         eye_rects = []
         for ex, ey, ew, eh in eyes:
             eye_rects.append((fx + ex, fy + ey, ew, eh))

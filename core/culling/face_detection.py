@@ -23,9 +23,13 @@ def detect_faces(image_path: str) -> dict:
         return {"count": 0, "faces": [], "passed": False}
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     face_c, profile_c = _cascades()
-    frontal = face_c.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+    if face_c.empty() and profile_c.empty():
+        return {"count": 0, "faces": [], "passed": False, "note": "cascade_missing"}
+    frontal = face_c.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30)) \
+        if not face_c.empty() else []
     if len(frontal) == 0:
-        profile = profile_c.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+        profile = profile_c.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30)) \
+            if not profile_c.empty() else []
         all_faces = list(profile)
     else:
         all_faces = list(frontal)
