@@ -30,7 +30,9 @@ DefaultGroupName={#AppName}
 AllowNoIcons=yes
 OutputDir=..\dist
 OutputBaseFilename=PhotoStudioHub-Setup-{#AppVersion}
+#if FileExists("icon.ico")
 SetupIconFile=icon.ico
+#endif
 Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
